@@ -1,0 +1,56 @@
+<?php
+
+// Pesan validasi yang dipakai SIBUKER-PT. Aturan lain jatuh ke bahasa Inggris (fallback).
+return [
+    'after' => ':Attribute harus setelah :date.',
+    'after_or_equal' => ':Attribute paling cepat :date.',
+    'array' => ':Attribute tidak valid.',
+    'before' => ':Attribute harus sebelum :date.',
+    'before_or_equal' => ':Attribute tidak boleh setelah :date.',
+    'boolean' => ':Attribute harus ya atau tidak.',
+    'confirmed' => 'Konfirmasi :attribute tidak sama.',
+    'date' => ':Attribute bukan tanggal yang valid.',
+    'email' => ':Attribute harus berupa alamat email.',
+    'exists' => ':Attribute yang dipilih tidak ada.',
+    'file' => ':Attribute harus berupa berkas.',
+    'image' => ':Attribute harus berupa gambar.',
+    'in' => ':Attribute yang dipilih tidak valid.',
+    'integer' => ':Attribute harus bilangan bulat.',
+    'max' => [
+        'file' => ':Attribute maksimal :max KB.',
+        'numeric' => ':Attribute maksimal :max.',
+        'string' => ':Attribute maksimal :max karakter.',
+    ],
+    'mimes' => ':Attribute harus berformat :values.',
+    'min' => [
+        'numeric' => ':Attribute minimal :min.',
+        'string' => ':Attribute minimal :min karakter.',
+    ],
+    'numeric' => ':Attribute harus berupa angka.',
+    'password' => [
+        'min' => ':Attribute minimal :min karakter.',
+    ],
+    'required' => ':Attribute wajib diisi.',
+    'required_if' => ':Attribute wajib diisi.',
+    'string' => ':Attribute harus berupa teks.',
+    'unique' => ':Attribute sudah dipakai.',
+    'url' => ':Attribute harus berupa URL lengkap, misalnya https://contoh.id.',
+
+    'attributes' => [
+        'password' => 'kata sandi',
+        'nama' => 'nama',
+        'nomor_telepon' => 'nomor telepon',
+        'judul' => 'judul',
+        'penerbit' => 'penerbit',
+        'deskripsi' => 'deskripsi',
+        'lokasi' => 'lokasi',
+        'kode' => 'kode',
+        'posisi' => 'posisi',
+        'bobot' => 'bobot',
+        'urutan' => 'urutan',
+        'jadwal' => 'jadwal',
+        'catatan' => 'catatan',
+        'keputusan' => 'keputusan',
+        'status' => 'status',
+    ],
+];
