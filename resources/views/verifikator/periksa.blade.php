@@ -38,7 +38,7 @@
         @endif
     </div>
 
-    <form action="{{ route('verifikator.periksa.store', $bukti->id) }}" method="POST" class="panel" id="form-periksa" style="position:sticky;top:84px">
+    <form action="{{ route('verifikator.periksa.store', $bukti->id) }}" method="POST" class="panel" id="form-periksa">
         @csrf
         <div class="panel-head"><h2>Keputusan</h2></div>
         <div class="panel-body">

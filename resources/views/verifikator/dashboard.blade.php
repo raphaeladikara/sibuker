@@ -4,9 +4,10 @@
 
 @section('content')
 @php use App\Support\Format; @endphp
-<div class="page-head">
+<div class="page-head workspace-intro">
     <div>
-        <h1>Antrean pemeriksaan</h1>
+        <span class="eyebrow">KEAHLIAN YANG BISA DIPERCAYA</span>
+            <h1>Antrean pemeriksaan</h1>
         <p class="sub">{{ $verifikator->pengguna->nama }} &middot; {{ $verifikator->instansi }}. Hanya sertifikat dari pemilik yang punya keahlian di bidang kewenanganmu yang tampil di sini.</p>
     </div>
 </div>

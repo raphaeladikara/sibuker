@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Temukan peluang kerja berdasarkan keahlian. Bangun profil, verifikasi sertifikat, dan lihat kecocokanmu bersama SIBUKER-PT.">
-    <title>SIBUKER-PT · Keahlian nyata, peluang bermakna</title>
+    <meta name="description" content="Temukan peluang kerja berdasarkan keahlian. Bangun profil, verifikasi sertifikat, dan lihat kecocokanmu bersama SIBUKER.">
+    <title>SIBUKER · Keahlian nyata, peluang bermakna</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a class="skip-link" href="#konten">Langsung ke konten</a>
     <header class="site-header">
         <div class="container header-inner">
-            <a class="wordmark" href="{{ route('beranda') }}" aria-label="SIBUKER-PT, beranda"><span class="brand-mark" aria-hidden="true"><i class="bi bi-check-lg"></i></span>SIBUKER<span class="brand-suffix">PT</span></a>
+            <a class="wordmark" href="{{ route('beranda') }}" aria-label="SIBUKER, beranda"><span class="brand-mark" aria-hidden="true"><i class="bi bi-check-lg"></i></span>SIBUKER</a>
             <nav class="desktop-nav" aria-label="Navigasi utama"><a href="#cara-kerja">Cara kerja</a><a href="#lowongan">Pilihan lowongan</a><a href="#perusahaan">Untuk perusahaan</a></nav>
             <div class="header-actions">
                 @auth
@@ -30,7 +30,7 @@
         </div>
     </header>
     <main id="konten">@yield('content')</main>
-    <footer class="container site-footer"><div><a class="wordmark" href="{{ route('beranda') }}">SIBUKER<span class="brand-suffix">PT</span></a><p>Keahlian nyata. Peluang bermakna.</p></div><p>Kelompok F · Basis Data SD-A2<br>S1 Teknologi Sains Data, Universitas Airlangga</p><a href="#konten">Kembali ke atas <i class="bi bi-arrow-up" aria-hidden="true"></i></a></footer>
+    <footer class="container site-footer"><div><a class="wordmark" href="{{ route('beranda') }}">SIBUKER</a><p>Keahlian nyata. Peluang bermakna.</p></div><a href="#konten">Kembali ke atas <i class="bi bi-arrow-up" aria-hidden="true"></i></a></footer>
     <script>
         const mobileMenu = document.querySelector('.mobile-nav');
         mobileMenu.addEventListener('click', (event) => {

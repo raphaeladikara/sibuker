@@ -42,14 +42,14 @@
 @endphp
 <header class="topbar">
     <div class="wrap">
-        <a class="brand" href="{{ $pengguna ? route($pengguna->ruteDashboard($peranAktif)) : route('beranda') }}" aria-label="SIBUKER-PT, halaman utama">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="4" fill="none" stroke="#2f33c8" stroke-width="4"/><path d="M10 16.5l4 4 8-9" fill="none" stroke="#2f33c8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a class="brand" href="{{ $pengguna ? route($pengguna->ruteDashboard($peranAktif)) : route('beranda') }}" aria-label="SIBUKER, halaman utama">
+            <span class="brand-mark"><i class="bi bi-check2" aria-hidden="true"></i></span>
             <span>SIBUKER</span>
         </a>
 
         <nav class="nav" aria-label="Navigasi utama">
             @foreach ($menu as [$rute, $pola, $ikon, $label])
-                <a href="{{ route($rute) }}" @class(['aktif' => request()->routeIs(...explode('|', $pola))])>
+                <a href="{{ route($rute) }}" @class(['aktif' => request()->routeIs(...explode('|', $pola))]) @if(request()->routeIs(...explode('|', $pola))) aria-current="page" @endif>
                     <i class="bi {{ $ikon }}" aria-hidden="true"></i>{{ $label }}
                 </a>
             @endforeach

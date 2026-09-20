@@ -7,9 +7,10 @@
     use App\Models\Pengguna;
     $maks = max(1, $peta->max(fn ($p) => max($p->diminta, $p->diklaim)));
 @endphp
-<div class="page-head">
+<div class="page-head workspace-intro">
     <div>
-        <h1>Ringkasan sistem</h1>
+        <span class="eyebrow">RUANG ADMINISTRASI</span>
+            <h1>Ringkasan sistem</h1>
         <p class="sub">Data dihitung langsung dari basis data setiap kali halaman dibuka.</p>
     </div>
 </div>

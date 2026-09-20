@@ -4,10 +4,11 @@
 
 @section('content')
 @php use App\Support\Format; @endphp
-<div class="page-head">
+<div class="page-head workspace-intro">
     <div class="row" style="gap:16px;align-items:flex-start">
         @include('partials.logo', ['perusahaan' => $perusahaan, 'ukuran' => 'lg'])
         <div>
+            <span class="eyebrow">RUANG REKRUTMEN</span>
             <h1>{{ $perusahaan->nama }}</h1>
             <p class="sub">
                 @if ($perusahaan->nib) NIB {{ $perusahaan->nib }} &middot; @endif

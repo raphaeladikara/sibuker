@@ -11,9 +11,11 @@
         'admin' => ['bi-gear', 'Kelola akun dan data master'],
     ];
 @endphp
-<div class="auth" style="grid-template-columns:minmax(0,440px)">
+<div class="auth">
+    @include('partials.auth-intro')
     <div class="panel">
         <div class="panel-body">
+            <span class="eyebrow">SATU AKUN, BANYAK PELUANG</span>
             <h1>Masuk sebagai</h1>
             <p class="muted" style="margin-bottom:22px">Akunmu punya {{ count($peran) }} peran. Kamu bisa pindah kapan saja lewat menu di kanan atas.</p>
             <div class="peran-grid">

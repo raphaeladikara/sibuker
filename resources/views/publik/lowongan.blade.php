@@ -2,6 +2,13 @@
 
 @section('title', 'Cari Lowongan')
 
+@section('intro')
+<section class="catalog-intro wrap" aria-labelledby="catalog-title">
+    <div><span class="eyebrow">TEMUKAN LANGKAH BERIKUTNYA</span><h1 id="catalog-title">Peluang yang sejalan<br>dengan <span>keahlianmu.</span></h1><p>Jelajahi lowongan, kenali persyaratannya, dan temukan tempat untuk berkembang.</p></div>
+    <div class="catalog-note"><i class="bi bi-patch-check-fill" aria-hidden="true"></i><div><strong>Keahlianmu punya tempat.</strong><p>Sertifikat terverifikasi memberi perusahaan alasan lebih untuk percaya.</p></div></div>
+</section>
+@endsection
+
 @section('searchbar')
     @include('partials.searchbar')
 @endsection
@@ -54,7 +61,7 @@
     <div>
         <div class="toolbar">
             <div>
-                <h1>Lowongan</h1>
+                <h2>Lowongan tersedia</h2>
                 <div class="count">
                     {{ $lowongan->total() }} lowongan dibuka
                     @if (request('q')) untuk &ldquo;{{ request('q') }}&rdquo; @endif

@@ -3,9 +3,11 @@
 @section('title', 'Daftar')
 
 @section('content')
-<div class="auth" style="grid-template-columns:minmax(0,560px)">
+<div class="auth">
+    @include('partials.auth-intro', ['illustration' => 'images/login-profile.png'])
     <div class="panel">
         <div class="panel-body">
+            <span class="eyebrow">MULAI DARI SINI</span>
             <h1>Buat akun</h1>
             <p class="muted" style="margin-bottom:24px">Akun verifikator dibuat oleh administrator, tidak lewat halaman ini.</p>
 

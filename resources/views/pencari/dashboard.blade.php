@@ -10,6 +10,11 @@
     $lamaranAktif = $lamaran->reject->sudahFinal()->count();
 @endphp
 
+<section class="workspace-intro">
+    <div><span class="eyebrow">RUANG KARIERMU</span><h1>Langkah kecil hari ini.<br>Peluang baru esok hari.</h1><p>Kelola keahlian, pantau lamaran, dan temukan kesempatan berikutnya.</p></div>
+    <a href="{{ route('pencari.lowongan.index') }}" class="btn btn-primary">Temukan lowongan <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+</section>
+
 <div class="cols cols-left">
     <aside class="stack">
         <div class="panel">
@@ -71,7 +76,7 @@
     <div>
         <div class="page-head">
             <div>
-                <h1>Halo, {{ \Illuminate\Support\Str::words($profil->pengguna->nama, 1, '') }}</h1>
+                <h2>Halo, {{ \Illuminate\Support\Str::words($profil->pengguna->nama, 1, '') }}</h2>
                 <p class="sub">Skor di bawah dihitung ulang setiap kali halaman dibuka, dari keahlian dan centang birumu saat ini.</p>
             </div>
             <div class="page-actions"><a href="{{ route('pencari.lowongan.index') }}" class="btn btn-primary"><i class="bi bi-search"></i> Cari lowongan</a></div>

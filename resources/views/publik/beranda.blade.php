@@ -22,7 +22,7 @@
         </div>
     </section>
 </div>
-<div class="principles" aria-label="Prinsip SIBUKER-PT"><div class="container principles-inner"><span>Keahlian jadi pembeda</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Verifikasi yang transparan</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Peluang untuk berkembang</span><i class="bi bi-asterisk" aria-hidden="true"></i></div></div>
+<div class="principles" aria-label="Prinsip SIBUKER"><div class="container principles-inner"><span>Keahlian jadi pembeda</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Verifikasi yang transparan</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Peluang untuk berkembang</span><i class="bi bi-asterisk" aria-hidden="true"></i></div></div>
 
 <section class="container section benefits" id="cara-kerja" aria-labelledby="benefits-title">
     <div class="section-heading"><div><p class="eyebrow">LEBIH DARI SEKADAR CV</p><h2 id="benefits-title">Kemampuanmu punya cerita.<br>Biar peluang yang menemukannya.</h2></div><p>Kamu membawa keahlian.<br>Kami membantu membuatnya terlihat.</p></div>

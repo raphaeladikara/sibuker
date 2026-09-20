@@ -4,9 +4,12 @@
 
 @section('content')
 <div class="auth">
+    @include('partials.auth-intro', ['illustration' => 'images/login-profile.png'])
+    <div class="auth-content stack">
     <div class="panel">
         <div class="panel-body">
-            <h1>Masuk</h1>
+            <span class="eyebrow">SELAMAT DATANG KEMBALI</span>
+            <h1>Siap melangkah lagi?</h1>
             <p class="muted" style="margin-bottom:24px">Satu akun bisa dipakai untuk lebih dari satu peran.</p>
 
             <form action="{{ route('masuk.proses') }}" method="POST" id="form-masuk" novalidate>
@@ -41,5 +44,6 @@
             <div class="panel-foot small muted">Klik email untuk mengisi form. Daftar ini hanya muncul saat APP_ENV=local.</div>
         </div>
     @endif
+    </div>
 </div>
 @endsection
