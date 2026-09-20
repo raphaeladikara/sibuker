@@ -1,0 +1,45 @@
+erDiagram
+    lowongan {
+        bigint id PK
+        bigint perusahaan_id FK
+        varchar_50 kode UK
+        varchar_180 posisi
+        text deskripsi
+        varchar_150 lokasi
+        enum tipe_pekerjaan
+        enum status
+        timestamp dipublikasikan_pada
+        timestamp ditutup_pada
+        timestamp dibuat_pada
+        timestamp diperbarui_pada
+    }
+    pencari_kerja {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 headline
+        text ringkasan
+        varchar_150 lokasi
+        date tanggal_lahir
+    }
+    lamaran {
+        bigint id PK
+        bigint lowongan_id FK
+        bigint pencari_kerja_id FK
+        enum status
+        decimal skor_kecocokan
+        timestamp dilamar_pada
+        timestamp diperbarui_pada
+    }
+    tahap_seleksi {
+        bigint id PK
+        bigint lamaran_id FK
+        varchar_120 nama_tahap
+        smallint urutan
+        enum status
+        datetime jadwal
+        text catatan
+        timestamp diperbarui_pada
+    }
+    lowongan ||--o{ lamaran : "menerima"
+    pencari_kerja ||--o{ lamaran : "mengirim"
+    lamaran ||--o{ tahap_seleksi : "melalui"

@@ -43,11 +43,7 @@ class PublikController extends Controller
     {
         $query = $this->lowonganTerbuka()->with(['perusahaan', 'syarat.keahlian'])->withCount('lamaran');
 
-        if ($kata = trim((string) $request->query('q'))) {
-            $query->where(fn ($q) => $q->where('posisi', 'like', "%{$kata}%")
-                ->orWhere('deskripsi', 'like', "%{$kata}%")
-                ->orWhereHas('perusahaan', fn ($p) => $p->where('nama', 'like', "%{$kata}%")));
-        }
+        $query->cari($request->query('q'));
 
         if ($lokasi = trim((string) $request->query('lokasi'))) {
             $query->where('lokasi', 'like', "%{$lokasi}%");

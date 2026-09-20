@@ -1,0 +1,42 @@
+erDiagram
+    pengguna {
+        bigint id PK
+        varchar_150 nama
+        varchar_191 email UK
+        varchar_255 password
+        varchar_25 nomor_telepon
+        varchar_500 foto_profil
+        boolean is_admin
+        enum status_akun
+        timestamp dibuat_pada
+        timestamp diperbarui_pada
+    }
+    pencari_kerja {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 headline
+        text ringkasan
+        varchar_150 lokasi
+        date tanggal_lahir
+    }
+    verifikator {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 instansi
+        varchar_150 jabatan
+        enum status_verifikator
+    }
+    perusahaan {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 nama
+        varchar_50 nib UK
+        text deskripsi
+        text alamat
+        varchar_500 situs_web
+        varchar_500 logo
+        enum status_perusahaan
+    }
+    pengguna ||--o| pencari_kerja : "memiliki profil"
+    pengguna ||--o| perusahaan : "memiliki profil"
+    pengguna ||--o| verifikator : "memiliki profil"

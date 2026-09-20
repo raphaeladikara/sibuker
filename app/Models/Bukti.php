@@ -51,10 +51,12 @@ class Bukti extends Model
             $query->select('bukti.*');
         }
 
-        return $query->addSelect(['status_terakhir' => DB::table('verifikasi')
-            ->selectRaw('CASE WHEN verifikasi.dibuat_pada < bukti.diunggah_pada THEN NULL ELSE verifikasi.keputusan END')
-            ->whereColumn('verifikasi.bukti_id', 'bukti.id')
-            ->orderByDesc('verifikasi.id')
+        // Aturan "verifikasi terbaru yang masih sah" sekarang hanya ditulis sekali, di view
+        // v_verifikasi_terbaru, supaya aplikasi dan view v_status_keahlian tidak bisa
+        // berbeda pendapat soal apakah sebuah sertifikat masih terverifikasi.
+        return $query->addSelect(['status_terakhir' => DB::table('v_verifikasi_terbaru')
+            ->select('keputusan')
+            ->whereColumn('v_verifikasi_terbaru.bukti_id', 'bukti.id')
             ->limit(1),
         ]);
     }
@@ -65,13 +67,13 @@ class Bukti extends Model
      */
     public function scopeDalamAntrean(Builder $query): Builder
     {
-        return $query->where(function ($q) {
-            $q->whereNotExists(fn ($s) => $s->from('verifikasi')->whereColumn('verifikasi.bukti_id', 'bukti.id'))
-                ->orWhereExists(fn ($s) => $s->from('verifikasi as vt')
-                    ->whereColumn('vt.bukti_id', 'bukti.id')
-                    ->whereRaw('vt.id = (SELECT MAX(v2.id) FROM verifikasi v2 WHERE v2.bukti_id = bukti.id)')
-                    ->where(fn ($w) => $w->where('vt.keputusan', 'menunggu')->orWhereColumn('vt.dibuat_pada', '<', 'bukti.diunggah_pada')));
-        });
+        // v_verifikasi_terbaru berisi paling banyak satu baris per bukti, dan baris itu
+        // hilang sendiri ketika berkas diganti. Jadi ketiga kondisi lama (belum pernah
+        // diperiksa, keputusan terakhir ditunda, berkas diganti) cukup ditulis sebagai
+        // "tidak ada keputusan akhir yang masih berlaku".
+        return $query->whereNotExists(fn ($s) => $s->from('v_verifikasi_terbaru')
+            ->whereColumn('v_verifikasi_terbaru.bukti_id', 'bukti.id')
+            ->whereIn('v_verifikasi_terbaru.keputusan', ['disetujui', 'ditolak']));
     }
 
     public function perluDiperiksa(): bool

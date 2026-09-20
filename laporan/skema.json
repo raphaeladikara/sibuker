@@ -1,0 +1,1419 @@
+{
+    "tabel": {
+        "bukti": {
+            "nama": "bukti",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama sertifikat."
+                },
+                {
+                    "nama": "pengguna_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Akun yang mengunggah sertifikat."
+                },
+                {
+                    "nama": "jenis_bukti_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Jenis bukti."
+                },
+                {
+                    "nama": "judul",
+                    "tipe": "varchar(200)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Judul sertifikat."
+                },
+                {
+                    "nama": "penerbit",
+                    "tipe": "varchar(200)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Lembaga penerbit sertifikat."
+                },
+                {
+                    "nama": "url_berkas",
+                    "tipe": "varchar(500)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Lokasi berkas PDF pada Laravel File Storage, bukan isi berkasnya."
+                },
+                {
+                    "nama": "tanggal_terbit",
+                    "tipe": "date",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Tanggal sertifikat diterbitkan."
+                },
+                {
+                    "nama": "diunggah_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "MUL",
+                    "keterangan": "Waktu berkas terakhir diunggah. Diperbarui saat berkas diganti, dan dipakai view untuk menggugurkan hasil pemeriksaan lama."
+                }
+            ],
+            "jumlah_baris": 6
+        },
+        "bukti_keahlian": {
+            "nama": "bukti_keahlian",
+            "kolom": [
+                {
+                    "nama": "verifikasi_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "PRI",
+                    "keterangan": "Bagian kunci utama gabungan. Hasil pemeriksaan yang membuktikan."
+                },
+                {
+                    "nama": "klaim_keahlian_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "PRI",
+                    "keterangan": "Bagian kunci utama gabungan. Klaim keahlian yang dibuktikan."
+                }
+            ],
+            "jumlah_baris": 4
+        },
+        "jenis_bukti": {
+            "nama": "jenis_bukti",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama data acuan jenis bukti."
+                },
+                {
+                    "nama": "nama",
+                    "tipe": "varchar(100)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Nama jenis bukti, misalnya Sertifikat Profesi. Unik."
+                }
+            ],
+            "jumlah_baris": 4
+        },
+        "keahlian": {
+            "nama": "keahlian",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama data acuan keahlian."
+                },
+                {
+                    "nama": "nama",
+                    "tipe": "varchar(120)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Nama keahlian. Unik agar tidak ada duplikat penulisan."
+                },
+                {
+                    "nama": "kategori",
+                    "tipe": "varchar(120)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Pengelompokan keahlian."
+                },
+                {
+                    "nama": "deskripsi",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Penjelasan keahlian."
+                },
+                {
+                    "nama": "aktif",
+                    "tipe": "tinyint(1)",
+                    "null": "Tidak",
+                    "bawaan": "1",
+                    "kunci": "",
+                    "keterangan": "Keahlian nonaktif tidak dapat dipilih lagi, tetapi klaim lama tetap tersimpan."
+                }
+            ],
+            "jumlah_baris": 8
+        },
+        "kewenangan_verifikator": {
+            "nama": "kewenangan_verifikator",
+            "kolom": [
+                {
+                    "nama": "verifikator_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "PRI",
+                    "keterangan": "Bagian kunci utama gabungan. Verifikator pemilik kewenangan."
+                },
+                {
+                    "nama": "keahlian_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "PRI",
+                    "keterangan": "Bagian kunci utama gabungan. Keahlian yang boleh diperiksa."
+                },
+                {
+                    "nama": "diberikan_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu kewenangan diberikan administrator."
+                }
+            ],
+            "jumlah_baris": 8
+        },
+        "klaim_keahlian": {
+            "nama": "klaim_keahlian",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama klaim keahlian."
+                },
+                {
+                    "nama": "pencari_kerja_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Pemilik klaim."
+                },
+                {
+                    "nama": "keahlian_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Keahlian yang diklaim."
+                },
+                {
+                    "nama": "level_klaim",
+                    "tipe": "enum('pemula','menengah','mahir','ahli')",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "pemula, menengah, mahir, atau ahli. Diisi sendiri oleh pencari kerja."
+                },
+                {
+                    "nama": "tanggal_ditambahkan",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu klaim dicantumkan."
+                },
+                {
+                    "nama": "aktif",
+                    "tipe": "tinyint(1)",
+                    "null": "Tidak",
+                    "bawaan": "1",
+                    "kunci": "",
+                    "keterangan": "Klaim nonaktif disembunyikan dari profil tanpa dihapus."
+                }
+            ],
+            "jumlah_baris": 9
+        },
+        "lamaran": {
+            "nama": "lamaran",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama lamaran."
+                },
+                {
+                    "nama": "lowongan_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Lowongan yang dilamar."
+                },
+                {
+                    "nama": "pencari_kerja_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Pelamar."
+                },
+                {
+                    "nama": "status",
+                    "tipe": "enum('dikirim','ditinjau','diproses','diterima','ditolak','ditarik')",
+                    "null": "Tidak",
+                    "bawaan": "dikirim",
+                    "kunci": "",
+                    "keterangan": "dikirim, ditinjau, diproses, diterima, ditolak, atau ditarik."
+                },
+                {
+                    "nama": "skor_kecocokan",
+                    "tipe": "decimal(5,2)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Potret skor kecocokan saat melamar, dalam persen."
+                },
+                {
+                    "nama": "dilamar_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu lamaran dikirim."
+                },
+                {
+                    "nama": "diperbarui_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu perubahan status terakhir."
+                }
+            ],
+            "jumlah_baris": 3
+        },
+        "lowongan": {
+            "nama": "lowongan",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama lowongan."
+                },
+                {
+                    "nama": "perusahaan_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Perusahaan pemilik lowongan."
+                },
+                {
+                    "nama": "kode",
+                    "tipe": "varchar(50)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Kode lowongan. Unik."
+                },
+                {
+                    "nama": "posisi",
+                    "tipe": "varchar(180)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Nama posisi yang dibuka."
+                },
+                {
+                    "nama": "deskripsi",
+                    "tipe": "text",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Uraian pekerjaan."
+                },
+                {
+                    "nama": "lokasi",
+                    "tipe": "varchar(150)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Lokasi penempatan."
+                },
+                {
+                    "nama": "tipe_pekerjaan",
+                    "tipe": "enum('penuh_waktu','paruh_waktu','kontrak','magang','freelance')",
+                    "null": "Tidak",
+                    "bawaan": "penuh_waktu",
+                    "kunci": "",
+                    "keterangan": "penuh_waktu, paruh_waktu, kontrak, magang, atau freelance."
+                },
+                {
+                    "nama": "status",
+                    "tipe": "enum('draft','dipublikasikan','ditutup')",
+                    "null": "Tidak",
+                    "bawaan": "draft",
+                    "kunci": "MUL",
+                    "keterangan": "draft, dipublikasikan, atau ditutup. Hanya yang dipublikasikan tampil di halaman publik."
+                },
+                {
+                    "nama": "dipublikasikan_pada",
+                    "tipe": "timestamp",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Waktu publikasi. Wajib terisi bila status dipublikasikan."
+                },
+                {
+                    "nama": "ditutup_pada",
+                    "tipe": "timestamp",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Waktu penutupan. Wajib terisi bila status ditutup."
+                },
+                {
+                    "nama": "dibuat_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu lowongan dibuat."
+                },
+                {
+                    "nama": "diperbarui_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu perubahan terakhir."
+                }
+            ],
+            "jumlah_baris": 4
+        },
+        "pencari_kerja": {
+            "nama": "pencari_kerja",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama profil pencari kerja."
+                },
+                {
+                    "nama": "pengguna_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Akun pemilik profil. Unik, sehingga satu akun hanya punya satu profil."
+                },
+                {
+                    "nama": "headline",
+                    "tipe": "varchar(200)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Ringkasan satu baris pada profil."
+                },
+                {
+                    "nama": "ringkasan",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Deskripsi diri."
+                },
+                {
+                    "nama": "lokasi",
+                    "tipe": "varchar(150)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Kota domisili."
+                },
+                {
+                    "nama": "tanggal_lahir",
+                    "tipe": "date",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Tanggal lahir, opsional."
+                }
+            ],
+            "jumlah_baris": 5
+        },
+        "pengguna": {
+            "nama": "pengguna",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama akun."
+                },
+                {
+                    "nama": "nama",
+                    "tipe": "varchar(150)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Nama lengkap pemilik akun."
+                },
+                {
+                    "nama": "email",
+                    "tipe": "varchar(191)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Alamat surel, dipakai untuk masuk. Unik."
+                },
+                {
+                    "nama": "password",
+                    "tipe": "varchar(255)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Kata sandi yang sudah di-hash bcrypt."
+                },
+                {
+                    "nama": "nomor_telepon",
+                    "tipe": "varchar(25)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Nomor kontak, opsional."
+                },
+                {
+                    "nama": "foto_profil",
+                    "tipe": "varchar(500)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Lokasi berkas foto pada penyimpanan publik."
+                },
+                {
+                    "nama": "is_admin",
+                    "tipe": "tinyint(1)",
+                    "null": "Tidak",
+                    "bawaan": "0",
+                    "kunci": "",
+                    "keterangan": "Penanda peran administrator."
+                },
+                {
+                    "nama": "status_akun",
+                    "tipe": "enum('aktif','nonaktif','ditangguhkan')",
+                    "null": "Tidak",
+                    "bawaan": "aktif",
+                    "kunci": "",
+                    "keterangan": "aktif, nonaktif, atau ditangguhkan. Selain aktif tidak dapat masuk."
+                },
+                {
+                    "nama": "dibuat_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu akun dibuat."
+                },
+                {
+                    "nama": "diperbarui_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu perubahan terakhir, diisi otomatis."
+                }
+            ],
+            "jumlah_baris": 10
+        },
+        "perusahaan": {
+            "nama": "perusahaan",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama profil perusahaan."
+                },
+                {
+                    "nama": "pengguna_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Akun pemilik profil. Unik."
+                },
+                {
+                    "nama": "nama",
+                    "tipe": "varchar(200)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Nama perusahaan."
+                },
+                {
+                    "nama": "nib",
+                    "tipe": "varchar(50)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "UNI",
+                    "keterangan": "Nomor Induk Berusaha. Unik bila diisi."
+                },
+                {
+                    "nama": "deskripsi",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Profil singkat perusahaan."
+                },
+                {
+                    "nama": "alamat",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Alamat kantor."
+                },
+                {
+                    "nama": "situs_web",
+                    "tipe": "varchar(500)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Tautan situs resmi."
+                },
+                {
+                    "nama": "logo",
+                    "tipe": "varchar(500)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Lokasi berkas logo."
+                },
+                {
+                    "nama": "status_perusahaan",
+                    "tipe": "enum('aktif','nonaktif')",
+                    "null": "Tidak",
+                    "bawaan": "aktif",
+                    "kunci": "",
+                    "keterangan": "aktif atau nonaktif. Nonaktif tidak dapat mempublikasikan lowongan."
+                }
+            ],
+            "jumlah_baris": 3
+        },
+        "syarat_keahlian": {
+            "nama": "syarat_keahlian",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama persyaratan."
+                },
+                {
+                    "nama": "lowongan_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Lowongan yang mensyaratkan."
+                },
+                {
+                    "nama": "keahlian_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Keahlian yang disyaratkan."
+                },
+                {
+                    "nama": "level_minimum",
+                    "tipe": "enum('pemula','menengah','mahir','ahli')",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Level terendah yang diterima. Kosong berarti level apa pun."
+                },
+                {
+                    "nama": "sifat",
+                    "tipe": "enum('wajib','opsional')",
+                    "null": "Tidak",
+                    "bawaan": "wajib",
+                    "kunci": "",
+                    "keterangan": "wajib atau opsional."
+                },
+                {
+                    "nama": "bobot",
+                    "tipe": "decimal(5,2)",
+                    "null": "Tidak",
+                    "bawaan": "1.00",
+                    "kunci": "",
+                    "keterangan": "Bobot syarat dalam perhitungan skor kecocokan."
+                },
+                {
+                    "nama": "wajib_terverifikasi",
+                    "tipe": "tinyint(1)",
+                    "null": "Tidak",
+                    "bawaan": "0",
+                    "kunci": "",
+                    "keterangan": "Bila benar, klaim hanya dianggap memenuhi bila bercentang biru."
+                }
+            ],
+            "jumlah_baris": 6
+        },
+        "tahap_seleksi": {
+            "nama": "tahap_seleksi",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama tahap seleksi."
+                },
+                {
+                    "nama": "lamaran_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Lamaran yang dijalani."
+                },
+                {
+                    "nama": "nama_tahap",
+                    "tipe": "varchar(120)",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Nama tahap, misalnya Wawancara HR."
+                },
+                {
+                    "nama": "urutan",
+                    "tipe": "smallint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "",
+                    "keterangan": "Urutan tahap, dimulai dari 1."
+                },
+                {
+                    "nama": "status",
+                    "tipe": "enum('menunggu','berlangsung','lulus','tidak_lulus')",
+                    "null": "Tidak",
+                    "bawaan": "menunggu",
+                    "kunci": "",
+                    "keterangan": "menunggu, berlangsung, lulus, atau tidak_lulus."
+                },
+                {
+                    "nama": "jadwal",
+                    "tipe": "datetime",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Waktu pelaksanaan tahap."
+                },
+                {
+                    "nama": "catatan",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Catatan hasil tahap."
+                },
+                {
+                    "nama": "diperbarui_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu perubahan terakhir."
+                }
+            ],
+            "jumlah_baris": 6
+        },
+        "verifikasi": {
+            "nama": "verifikasi",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama satu kali pemeriksaan."
+                },
+                {
+                    "nama": "bukti_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Sertifikat yang diperiksa."
+                },
+                {
+                    "nama": "verifikator_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "MUL",
+                    "keterangan": "Verifikator yang memutuskan."
+                },
+                {
+                    "nama": "keputusan",
+                    "tipe": "enum('menunggu','disetujui','ditolak')",
+                    "null": "Tidak",
+                    "bawaan": "menunggu",
+                    "kunci": "",
+                    "keterangan": "menunggu, disetujui, atau ditolak."
+                },
+                {
+                    "nama": "catatan",
+                    "tipe": "text",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Alasan keputusan. Wajib diisi bila ditolak."
+                },
+                {
+                    "nama": "diverifikasi_pada",
+                    "tipe": "timestamp",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Waktu keputusan final diambil. Kosong selama keputusan masih menunggu."
+                },
+                {
+                    "nama": "berlaku_sampai",
+                    "tipe": "date",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Batas akhir masa berlaku centang biru. Kosong berarti tanpa batas."
+                },
+                {
+                    "nama": "dibuat_pada",
+                    "tipe": "timestamp",
+                    "null": "Tidak",
+                    "bawaan": "CURRENT_TIMESTAMP",
+                    "kunci": "",
+                    "keterangan": "Waktu baris pemeriksaan dibuat."
+                }
+            ],
+            "jumlah_baris": 5
+        },
+        "verifikator": {
+            "nama": "verifikator",
+            "kolom": [
+                {
+                    "nama": "id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "auto increment",
+                    "kunci": "PRI",
+                    "keterangan": "Kunci utama profil verifikator."
+                },
+                {
+                    "nama": "pengguna_id",
+                    "tipe": "bigint unsigned",
+                    "null": "Tidak",
+                    "bawaan": "-",
+                    "kunci": "UNI",
+                    "keterangan": "Akun pemilik profil. Unik."
+                },
+                {
+                    "nama": "instansi",
+                    "tipe": "varchar(200)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Lembaga tempat verifikator bernaung."
+                },
+                {
+                    "nama": "jabatan",
+                    "tipe": "varchar(150)",
+                    "null": "Ya",
+                    "bawaan": "NULL",
+                    "kunci": "",
+                    "keterangan": "Jabatan pada lembaga tersebut."
+                },
+                {
+                    "nama": "status_verifikator",
+                    "tipe": "enum('aktif','nonaktif')",
+                    "null": "Tidak",
+                    "bawaan": "aktif",
+                    "kunci": "",
+                    "keterangan": "aktif atau nonaktif. Nonaktif tidak menerima antrean."
+                }
+            ],
+            "jumlah_baris": 3
+        }
+    },
+    "fk": [
+        {
+            "CONSTRAINT_NAME": "fk_bukti_jenis",
+            "TABLE_NAME": "bukti",
+            "COLUMN_NAME": "jenis_bukti_id",
+            "REFERENCED_TABLE_NAME": "jenis_bukti",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "RESTRICT"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_bukti_pengguna",
+            "TABLE_NAME": "bukti",
+            "COLUMN_NAME": "pengguna_id",
+            "REFERENCED_TABLE_NAME": "pengguna",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_bukti_keahlian_klaim",
+            "TABLE_NAME": "bukti_keahlian",
+            "COLUMN_NAME": "klaim_keahlian_id",
+            "REFERENCED_TABLE_NAME": "klaim_keahlian",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_bukti_keahlian_verifikasi",
+            "TABLE_NAME": "bukti_keahlian",
+            "COLUMN_NAME": "verifikasi_id",
+            "REFERENCED_TABLE_NAME": "verifikasi",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_kewenangan_keahlian",
+            "TABLE_NAME": "kewenangan_verifikator",
+            "COLUMN_NAME": "keahlian_id",
+            "REFERENCED_TABLE_NAME": "keahlian",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_kewenangan_verifikator",
+            "TABLE_NAME": "kewenangan_verifikator",
+            "COLUMN_NAME": "verifikator_id",
+            "REFERENCED_TABLE_NAME": "verifikator",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_klaim_keahlian",
+            "TABLE_NAME": "klaim_keahlian",
+            "COLUMN_NAME": "keahlian_id",
+            "REFERENCED_TABLE_NAME": "keahlian",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "RESTRICT"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_klaim_pencari_kerja",
+            "TABLE_NAME": "klaim_keahlian",
+            "COLUMN_NAME": "pencari_kerja_id",
+            "REFERENCED_TABLE_NAME": "pencari_kerja",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_lamaran_lowongan",
+            "TABLE_NAME": "lamaran",
+            "COLUMN_NAME": "lowongan_id",
+            "REFERENCED_TABLE_NAME": "lowongan",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_lamaran_pencari_kerja",
+            "TABLE_NAME": "lamaran",
+            "COLUMN_NAME": "pencari_kerja_id",
+            "REFERENCED_TABLE_NAME": "pencari_kerja",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_lowongan_perusahaan",
+            "TABLE_NAME": "lowongan",
+            "COLUMN_NAME": "perusahaan_id",
+            "REFERENCED_TABLE_NAME": "perusahaan",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_pencari_kerja_pengguna",
+            "TABLE_NAME": "pencari_kerja",
+            "COLUMN_NAME": "pengguna_id",
+            "REFERENCED_TABLE_NAME": "pengguna",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_perusahaan_pengguna",
+            "TABLE_NAME": "perusahaan",
+            "COLUMN_NAME": "pengguna_id",
+            "REFERENCED_TABLE_NAME": "pengguna",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "RESTRICT"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_syarat_keahlian",
+            "TABLE_NAME": "syarat_keahlian",
+            "COLUMN_NAME": "keahlian_id",
+            "REFERENCED_TABLE_NAME": "keahlian",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "RESTRICT"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_syarat_lowongan",
+            "TABLE_NAME": "syarat_keahlian",
+            "COLUMN_NAME": "lowongan_id",
+            "REFERENCED_TABLE_NAME": "lowongan",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_tahap_lamaran",
+            "TABLE_NAME": "tahap_seleksi",
+            "COLUMN_NAME": "lamaran_id",
+            "REFERENCED_TABLE_NAME": "lamaran",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_verifikasi_bukti",
+            "TABLE_NAME": "verifikasi",
+            "COLUMN_NAME": "bukti_id",
+            "REFERENCED_TABLE_NAME": "bukti",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_verifikasi_verifikator",
+            "TABLE_NAME": "verifikasi",
+            "COLUMN_NAME": "verifikator_id",
+            "REFERENCED_TABLE_NAME": "verifikator",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "RESTRICT"
+        },
+        {
+            "CONSTRAINT_NAME": "fk_verifikator_pengguna",
+            "TABLE_NAME": "verifikator",
+            "COLUMN_NAME": "pengguna_id",
+            "REFERENCED_TABLE_NAME": "pengguna",
+            "REFERENCED_COLUMN_NAME": "id",
+            "UPDATE_RULE": "CASCADE",
+            "DELETE_RULE": "CASCADE"
+        }
+    ],
+    "indeks": [
+        {
+            "TABLE_NAME": "bukti",
+            "INDEX_NAME": "fk_bukti_jenis",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "jenis_bukti_id"
+        },
+        {
+            "TABLE_NAME": "bukti",
+            "INDEX_NAME": "idx_bukti_antrean",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "diunggah_pada"
+        },
+        {
+            "TABLE_NAME": "bukti",
+            "INDEX_NAME": "idx_bukti_pemilik",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pengguna_id,diunggah_pada DESC"
+        },
+        {
+            "TABLE_NAME": "bukti",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "bukti_keahlian",
+            "INDEX_NAME": "idx_bukti_keahlian_klaim",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "klaim_keahlian_id"
+        },
+        {
+            "TABLE_NAME": "bukti_keahlian",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "verifikasi_id,klaim_keahlian_id"
+        },
+        {
+            "TABLE_NAME": "jenis_bukti",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "jenis_bukti",
+            "INDEX_NAME": "uq_jenis_bukti_nama",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "nama"
+        },
+        {
+            "TABLE_NAME": "keahlian",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "keahlian",
+            "INDEX_NAME": "uq_keahlian_nama",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "nama"
+        },
+        {
+            "TABLE_NAME": "kewenangan_verifikator",
+            "INDEX_NAME": "fk_kewenangan_keahlian",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "keahlian_id"
+        },
+        {
+            "TABLE_NAME": "kewenangan_verifikator",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "verifikator_id,keahlian_id"
+        },
+        {
+            "TABLE_NAME": "klaim_keahlian",
+            "INDEX_NAME": "fk_klaim_keahlian",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "keahlian_id"
+        },
+        {
+            "TABLE_NAME": "klaim_keahlian",
+            "INDEX_NAME": "idx_klaim_pencari_aktif",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pencari_kerja_id,aktif"
+        },
+        {
+            "TABLE_NAME": "klaim_keahlian",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "klaim_keahlian",
+            "INDEX_NAME": "uq_klaim_pencari_keahlian",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pencari_kerja_id,keahlian_id"
+        },
+        {
+            "TABLE_NAME": "lamaran",
+            "INDEX_NAME": "idx_lamaran_pencari_waktu",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pencari_kerja_id,dilamar_pada DESC"
+        },
+        {
+            "TABLE_NAME": "lamaran",
+            "INDEX_NAME": "idx_lamaran_peringkat",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "lowongan_id,skor_kecocokan DESC,dilamar_pada"
+        },
+        {
+            "TABLE_NAME": "lamaran",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "lamaran",
+            "INDEX_NAME": "uq_lamaran_lowongan_pencari",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "lowongan_id,pencari_kerja_id"
+        },
+        {
+            "TABLE_NAME": "lowongan",
+            "INDEX_NAME": "fk_lowongan_perusahaan",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "perusahaan_id"
+        },
+        {
+            "TABLE_NAME": "lowongan",
+            "INDEX_NAME": "ft_lowongan_pencarian",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "FULLTEXT",
+            "kolom": "posisi,deskripsi"
+        },
+        {
+            "TABLE_NAME": "lowongan",
+            "INDEX_NAME": "idx_lowongan_publik",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "status,dipublikasikan_pada DESC"
+        },
+        {
+            "TABLE_NAME": "lowongan",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "lowongan",
+            "INDEX_NAME": "uq_lowongan_kode",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "kode"
+        },
+        {
+            "TABLE_NAME": "pencari_kerja",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "pencari_kerja",
+            "INDEX_NAME": "uq_pencari_kerja_pengguna",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pengguna_id"
+        },
+        {
+            "TABLE_NAME": "pengguna",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "pengguna",
+            "INDEX_NAME": "uq_pengguna_email",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "email"
+        },
+        {
+            "TABLE_NAME": "perusahaan",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "perusahaan",
+            "INDEX_NAME": "uq_perusahaan_nib",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "nib"
+        },
+        {
+            "TABLE_NAME": "perusahaan",
+            "INDEX_NAME": "uq_perusahaan_pengguna",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pengguna_id"
+        },
+        {
+            "TABLE_NAME": "syarat_keahlian",
+            "INDEX_NAME": "fk_syarat_keahlian",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "keahlian_id"
+        },
+        {
+            "TABLE_NAME": "syarat_keahlian",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "syarat_keahlian",
+            "INDEX_NAME": "uq_syarat_lowongan_keahlian",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "lowongan_id,keahlian_id"
+        },
+        {
+            "TABLE_NAME": "tahap_seleksi",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "tahap_seleksi",
+            "INDEX_NAME": "uq_tahap_lamaran_urutan",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "lamaran_id,urutan"
+        },
+        {
+            "TABLE_NAME": "verifikasi",
+            "INDEX_NAME": "idx_verifikasi_bukti_terbaru",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "bukti_id,id DESC,keputusan,berlaku_sampai"
+        },
+        {
+            "TABLE_NAME": "verifikasi",
+            "INDEX_NAME": "idx_verifikasi_verifikator",
+            "NON_UNIQUE": 1,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "verifikator_id"
+        },
+        {
+            "TABLE_NAME": "verifikasi",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "verifikator",
+            "INDEX_NAME": "PRIMARY",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "id"
+        },
+        {
+            "TABLE_NAME": "verifikator",
+            "INDEX_NAME": "uq_verifikator_pengguna",
+            "NON_UNIQUE": 0,
+            "INDEX_TYPE": "BTREE",
+            "kolom": "pengguna_id"
+        }
+    ],
+    "check": [
+        {
+            "CONSTRAINT_NAME": "chk_lamaran_skor",
+            "TABLE_NAME": "lamaran",
+            "CHECK_CLAUSE": "((`skor_kecocokan` is null) or (`skor_kecocokan` between 0 and 100))"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_lowongan_tanggal_publikasi",
+            "TABLE_NAME": "lowongan",
+            "CHECK_CLAUSE": "((`status` <> _utf8mb4\\'dipublikasikan\\') or (`dipublikasikan_pada` is not null))"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_lowongan_tanggal_tutup",
+            "TABLE_NAME": "lowongan",
+            "CHECK_CLAUSE": "((`status` <> _utf8mb4\\'ditutup\\') or (`ditutup_pada` is not null))"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_lowongan_urutan_tanggal",
+            "TABLE_NAME": "lowongan",
+            "CHECK_CLAUSE": "((`ditutup_pada` is null) or (`dipublikasikan_pada` is null) or (`ditutup_pada` >= `dipublikasikan_pada`))"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_syarat_bobot",
+            "TABLE_NAME": "syarat_keahlian",
+            "CHECK_CLAUSE": "(`bobot` >= 0)"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_tahap_urutan",
+            "TABLE_NAME": "tahap_seleksi",
+            "CHECK_CLAUSE": "(`urutan` > 0)"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_verifikasi_masa_berlaku",
+            "TABLE_NAME": "verifikasi",
+            "CHECK_CLAUSE": "((`berlaku_sampai` is null) or (`keputusan` = _utf8mb4\\'disetujui\\'))"
+        },
+        {
+            "CONSTRAINT_NAME": "chk_verifikasi_waktu_keputusan",
+            "TABLE_NAME": "verifikasi",
+            "CHECK_CLAUSE": "(((`keputusan` = _utf8mb4\\'menunggu\\') and (`diverifikasi_pada` is null)) or ((`keputusan` <> _utf8mb4\\'menunggu\\') and (`diverifikasi_pada` is not null)))"
+        }
+    ],
+    "view": [
+        "v_verifikasi_terbaru",
+        "v_status_keahlian"
+    ],
+    "trigger": [
+        {
+            "TRIGGER_NAME": "trg_bukti_keahlian_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "bukti_keahlian",
+            "ACTION_TIMING": "BEFORE"
+        },
+        {
+            "TRIGGER_NAME": "trg_bukti_keahlian_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "bukti_keahlian",
+            "ACTION_TIMING": "BEFORE"
+        },
+        {
+            "TRIGGER_NAME": "trg_verifikasi_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "verifikasi",
+            "ACTION_TIMING": "BEFORE"
+        },
+        {
+            "TRIGGER_NAME": "trg_verifikasi_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "verifikasi",
+            "ACTION_TIMING": "BEFORE"
+        }
+    ]
+}

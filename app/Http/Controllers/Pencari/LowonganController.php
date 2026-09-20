@@ -25,10 +25,7 @@ class LowonganController extends Controller
             ->whereHas('perusahaan', fn ($p) => $p->where('status_perusahaan', 'aktif'))
             ->with(['perusahaan', 'syarat.keahlian']);
 
-        if ($kata = trim((string) $request->query('q'))) {
-            $query->where(fn ($q) => $q->where('posisi', 'like', "%{$kata}%")
-                ->orWhereHas('perusahaan', fn ($p) => $p->where('nama', 'like', "%{$kata}%")));
-        }
+        $query->cari($request->query('q'));
 
         $hasil = $query->get()
             ->map(fn ($l) => (object) (['lowongan' => $l, 'sudah_dilamar' => in_array($l->id, $sudahDilamar)] + Kecocokan::hitung($l, $pencari, $klaim)))

@@ -1,0 +1,45 @@
+erDiagram
+    perusahaan {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 nama
+        varchar_50 nib UK
+        text deskripsi
+        text alamat
+        varchar_500 situs_web
+        varchar_500 logo
+        enum status_perusahaan
+    }
+    lowongan {
+        bigint id PK
+        bigint perusahaan_id FK
+        varchar_50 kode UK
+        varchar_180 posisi
+        text deskripsi
+        varchar_150 lokasi
+        enum tipe_pekerjaan
+        enum status
+        timestamp dipublikasikan_pada
+        timestamp ditutup_pada
+        timestamp dibuat_pada
+        timestamp diperbarui_pada
+    }
+    syarat_keahlian {
+        bigint id PK
+        bigint lowongan_id FK
+        bigint keahlian_id FK
+        enum level_minimum
+        enum sifat
+        decimal bobot
+        boolean wajib_terverifikasi
+    }
+    keahlian {
+        bigint id PK
+        varchar_120 nama UK
+        varchar_120 kategori
+        text deskripsi
+        boolean aktif
+    }
+    perusahaan ||--o{ lowongan : "membuka"
+    keahlian ||--o{ syarat_keahlian : "mensyaratkan"
+    lowongan ||--o{ syarat_keahlian : "menetapkan"

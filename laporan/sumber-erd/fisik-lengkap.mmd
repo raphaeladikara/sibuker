@@ -1,0 +1,148 @@
+erDiagram
+    bukti {
+        bigint id PK
+        bigint pengguna_id FK
+        bigint jenis_bukti_id FK
+        varchar_200 judul
+        varchar_200 penerbit
+        varchar_500 url_berkas
+        date tanggal_terbit
+        timestamp diunggah_pada
+    }
+    bukti_keahlian {
+        bigint verifikasi_id PK,FK
+        bigint klaim_keahlian_id PK,FK
+    }
+    jenis_bukti {
+        bigint id PK
+        varchar_100 nama UK
+    }
+    keahlian {
+        bigint id PK
+        varchar_120 nama UK
+        varchar_120 kategori
+        text deskripsi
+        boolean aktif
+    }
+    kewenangan_verifikator {
+        bigint verifikator_id PK,FK
+        bigint keahlian_id PK,FK
+        timestamp diberikan_pada
+    }
+    klaim_keahlian {
+        bigint id PK
+        bigint pencari_kerja_id FK
+        bigint keahlian_id FK
+        enum level_klaim
+        timestamp tanggal_ditambahkan
+        boolean aktif
+    }
+    lamaran {
+        bigint id PK
+        bigint lowongan_id FK
+        bigint pencari_kerja_id FK
+        enum status
+        decimal skor_kecocokan
+        timestamp dilamar_pada
+        timestamp diperbarui_pada
+    }
+    lowongan {
+        bigint id PK
+        bigint perusahaan_id FK
+        varchar_50 kode UK
+        varchar_180 posisi
+        text deskripsi
+        varchar_150 lokasi
+        enum tipe_pekerjaan
+        enum status
+        timestamp dipublikasikan_pada
+        timestamp ditutup_pada
+        timestamp dibuat_pada
+        timestamp diperbarui_pada
+    }
+    pencari_kerja {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 headline
+        text ringkasan
+        varchar_150 lokasi
+        date tanggal_lahir
+    }
+    pengguna {
+        bigint id PK
+        varchar_150 nama
+        varchar_191 email UK
+        varchar_255 password
+        varchar_25 nomor_telepon
+        varchar_500 foto_profil
+        boolean is_admin
+        enum status_akun
+        timestamp dibuat_pada
+        timestamp diperbarui_pada
+    }
+    perusahaan {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 nama
+        varchar_50 nib UK
+        text deskripsi
+        text alamat
+        varchar_500 situs_web
+        varchar_500 logo
+        enum status_perusahaan
+    }
+    syarat_keahlian {
+        bigint id PK
+        bigint lowongan_id FK
+        bigint keahlian_id FK
+        enum level_minimum
+        enum sifat
+        decimal bobot
+        boolean wajib_terverifikasi
+    }
+    tahap_seleksi {
+        bigint id PK
+        bigint lamaran_id FK
+        varchar_120 nama_tahap
+        smallint urutan
+        enum status
+        datetime jadwal
+        text catatan
+        timestamp diperbarui_pada
+    }
+    verifikasi {
+        bigint id PK
+        bigint bukti_id FK
+        bigint verifikator_id FK
+        enum keputusan
+        text catatan
+        timestamp diverifikasi_pada
+        date berlaku_sampai
+        timestamp dibuat_pada
+    }
+    verifikator {
+        bigint id PK
+        bigint pengguna_id FK,UK
+        varchar_200 instansi
+        varchar_150 jabatan
+        enum status_verifikator
+    }
+    jenis_bukti ||--o{ bukti : "berjenis"
+    pengguna ||--o{ bukti : "mengunggah"
+    klaim_keahlian ||--o{ bukti_keahlian : "dibuktikan oleh"
+    verifikasi ||--o{ bukti_keahlian : "membuktikan"
+    keahlian ||--o{ kewenangan_verifikator : "mencakup"
+    verifikator ||--o{ kewenangan_verifikator : "diberi kewenangan"
+    keahlian ||--o{ klaim_keahlian : "mengacu"
+    pencari_kerja ||--o{ klaim_keahlian : "mencantumkan"
+    lowongan ||--o{ lamaran : "menerima"
+    pencari_kerja ||--o{ lamaran : "mengirim"
+    perusahaan ||--o{ lowongan : "membuka"
+    pengguna ||--o| pencari_kerja : "memiliki profil"
+    pengguna ||--o| perusahaan : "memiliki profil"
+    keahlian ||--o{ syarat_keahlian : "mensyaratkan"
+    lowongan ||--o{ syarat_keahlian : "menetapkan"
+    lamaran ||--o{ tahap_seleksi : "melalui"
+    bukti ||--o{ verifikasi : "diperiksa lewat"
+    verifikator ||--o{ verifikasi : "memutuskan"
+    pengguna ||--o| verifikator : "memiliki profil"

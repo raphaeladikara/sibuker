@@ -1,0 +1,55 @@
+erDiagram
+    keahlian {
+        bigint id PK
+        varchar_120 nama UK
+        varchar_120 kategori
+        text deskripsi
+        boolean aktif
+    }
+    jenis_bukti {
+        bigint id PK
+        varchar_100 nama UK
+    }
+    kewenangan_verifikator {
+        bigint verifikator_id PK,FK
+        bigint keahlian_id PK,FK
+        timestamp diberikan_pada
+    }
+    klaim_keahlian {
+        bigint id PK
+        bigint pencari_kerja_id FK
+        bigint keahlian_id FK
+        enum level_klaim
+        timestamp tanggal_ditambahkan
+        boolean aktif
+    }
+    bukti {
+        bigint id PK
+        bigint pengguna_id FK
+        bigint jenis_bukti_id FK
+        varchar_200 judul
+        varchar_200 penerbit
+        varchar_500 url_berkas
+        date tanggal_terbit
+        timestamp diunggah_pada
+    }
+    verifikasi {
+        bigint id PK
+        bigint bukti_id FK
+        bigint verifikator_id FK
+        enum keputusan
+        text catatan
+        timestamp diverifikasi_pada
+        date berlaku_sampai
+        timestamp dibuat_pada
+    }
+    bukti_keahlian {
+        bigint verifikasi_id PK,FK
+        bigint klaim_keahlian_id PK,FK
+    }
+    jenis_bukti ||--o{ bukti : "berjenis"
+    klaim_keahlian ||--o{ bukti_keahlian : "dibuktikan oleh"
+    verifikasi ||--o{ bukti_keahlian : "membuktikan"
+    keahlian ||--o{ kewenangan_verifikator : "mencakup"
+    keahlian ||--o{ klaim_keahlian : "mengacu"
+    bukti ||--o{ verifikasi : "diperiksa lewat"

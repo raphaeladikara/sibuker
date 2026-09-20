@@ -1,0 +1,22 @@
+erDiagram
+    PENGGUNA ||--o| PENCARI_KERJA : "memiliki profil"
+    PENGGUNA ||--o| PERUSAHAAN : "memiliki profil"
+    PENGGUNA ||--o| VERIFIKATOR : "memiliki profil"
+
+    PENCARI_KERJA ||--o{ KLAIM_KEAHLIAN : "mencantumkan"
+    KEAHLIAN ||--o{ KLAIM_KEAHLIAN : "diklaim pada"
+
+    PENGGUNA ||--o{ BUKTI : "mengunggah"
+    JENIS_BUKTI ||--o{ BUKTI : "mengelompokkan"
+    BUKTI ||--o{ VERIFIKASI : "diperiksa lewat"
+    VERIFIKATOR ||--o{ VERIFIKASI : "memutuskan"
+    VERIFIKASI }o--o{ KLAIM_KEAHLIAN : "membuktikan"
+    VERIFIKATOR }o--o{ KEAHLIAN : "berwenang atas"
+
+    PERUSAHAAN ||--o{ LOWONGAN : "membuka"
+    LOWONGAN ||--o{ SYARAT_KEAHLIAN : "menetapkan"
+    KEAHLIAN ||--o{ SYARAT_KEAHLIAN : "dipakai pada"
+
+    LOWONGAN ||--o{ LAMARAN : "menerima"
+    PENCARI_KERJA ||--o{ LAMARAN : "mengirim"
+    LAMARAN ||--o{ TAHAP_SELEKSI : "memiliki"

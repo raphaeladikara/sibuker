@@ -1,0 +1,39 @@
+flowchart TB
+    subgraph KLIEN["Sisi Klien"]
+        B["Peramban pengguna<br/>HTML, CSS, JavaScript"]
+    end
+
+    subgraph SERVER["Sisi Server - Laravel 13"]
+        R["routes/web.php<br/>lima kelompok route per peran"]
+        M["Middleware peran<br/>auth + peran:pencari, perusahaan,<br/>verifikator, admin"]
+        C["Controller<br/>validasi dan aturan bisnis"]
+        E["Model Eloquent<br/>satu model per tabel"]
+        V["Blade View<br/>menyusun HTML balasan"]
+        S["Laravel File Storage<br/>berkas PDF sertifikat"]
+    end
+
+    subgraph DATA["Penyimpanan"]
+        DB[("MySQL 8.4<br/>15 tabel, 2 view,<br/>4 trigger, 8 CHECK")]
+        FS[("Direktori berkas<br/>storage/app/private/bukti")]
+    end
+
+    B -- "permintaan HTTP" --> R
+    R --> M
+    M -- "ditolak 403 bila peran tidak cocok" --> B
+    M --> C
+    C --> E
+    E -- "SQL lewat PDO" --> DB
+    DB -- "baris hasil" --> E
+    E --> C
+    C --> V
+    V -- "balasan HTML" --> B
+    C -- "simpan dan baca berkas" --> S
+    S --> FS
+    DB -. "url_berkas menyimpan lokasi, bukan isi berkas" .-> FS
+
+    classDef klien fill:#eef4ff,stroke:#2f5fd0,color:#10203d
+    classDef server fill:#ffffff,stroke:#2f5fd0,color:#10203d
+    classDef data fill:#e6f0e6,stroke:#2f6f3f,color:#10203d
+    class B klien
+    class R,M,C,E,V,S server
+    class DB,FS data

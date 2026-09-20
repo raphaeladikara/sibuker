@@ -78,6 +78,11 @@ class DatabaseSeeder extends Seeder
             ['verifikator_id' => 1, 'keahlian_id' => 3, 'diberikan_pada' => '2026-09-01 09:00'],
             ['verifikator_id' => 1, 'keahlian_id' => 4, 'diberikan_pada' => '2026-09-01 09:00'],
             ['verifikator_id' => 2, 'keahlian_id' => 5, 'diberikan_pada' => '2026-09-01 09:30'],
+            // Desain UI/UX sengaja diberikan ke dua verifikator. Maya (verifikator 2) juga
+            // seorang pencari kerja yang punya sertifikat UI/UX sendiri, dan dia tidak boleh
+            // memeriksa miliknya sendiri. Tanpa verifikator kedua, sertifikatnya tidak akan
+            // pernah bisa diperiksa siapa pun.
+            ['verifikator_id' => 1, 'keahlian_id' => 5, 'diberikan_pada' => '2026-09-01 09:30'],
             ['verifikator_id' => 3, 'keahlian_id' => 6, 'diberikan_pada' => '2026-09-01 10:00'],
             ['verifikator_id' => 3, 'keahlian_id' => 7, 'diberikan_pada' => '2026-09-01 10:00'],
         ]);
@@ -114,7 +119,10 @@ class DatabaseSeeder extends Seeder
             ['id' => 1, 'bukti_id' => 1, 'verifikator_id' => 1, 'keputusan' => 'disetujui', 'catatan' => 'Nomor sertifikat cocok dengan registri LSP.', 'diverifikasi_pada' => '2026-09-04 14:00', 'berlaku_sampai' => '2029-05-20', 'dibuat_pada' => '2026-09-03 10:15'],
             ['id' => 2, 'bukti_id' => 3, 'verifikator_id' => 1, 'keputusan' => 'disetujui', 'catatan' => 'Nilai praktik Laravel memenuhi standar.', 'diverifikasi_pada' => '2026-09-06 10:30', 'berlaku_sampai' => '2029-06-02', 'dibuat_pada' => '2026-09-05 13:10'],
             ['id' => 3, 'bukti_id' => 4, 'verifikator_id' => 3, 'keputusan' => 'disetujui', 'catatan' => null, 'diverifikasi_pada' => '2026-09-07 08:00', 'berlaku_sampai' => '2028-11-14', 'dibuat_pada' => '2026-09-06 09:25'],
-            ['id' => 4, 'bukti_id' => 5, 'verifikator_id' => 2, 'keputusan' => 'ditolak', 'catatan' => 'Verifikator tidak boleh menilai sertifikat miliknya sendiri. Ajukan ke verifikator lain.', 'diverifikasi_pada' => '2026-09-03 09:00', 'berlaku_sampai' => null, 'dibuat_pada' => '2026-09-02 19:50'],
+            // Sertifikat UI/UX milik Maya diperiksa Dr. Hendra (verifikator 1), bukan oleh
+            // Maya sendiri (verifikator 2). Aturan itu ditegakkan controller sekaligus
+            // trigger trg_verifikasi_bukan_milik_sendiri di database.
+            ['id' => 4, 'bukti_id' => 5, 'verifikator_id' => 1, 'keputusan' => 'ditolak', 'catatan' => 'Nama pada sertifikat berbeda dengan nama akun. Unggah ulang dengan sertifikat atas nama sendiri.', 'diverifikasi_pada' => '2026-09-03 09:00', 'berlaku_sampai' => null, 'dibuat_pada' => '2026-09-02 19:50'],
             ['id' => 5, 'bukti_id' => 2, 'verifikator_id' => 1, 'keputusan' => 'menunggu', 'catatan' => null, 'diverifikasi_pada' => null, 'berlaku_sampai' => null, 'dibuat_pada' => '2026-09-04 08:45'],
         ]);
 
