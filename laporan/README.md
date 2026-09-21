@@ -1,16 +1,16 @@
 # Laporan SIBUKER-PT
 
-Berkas laporan: **`Laporan-SIBUKER-PT-Kelompok-F.docx`** (69 halaman, 34 gambar, 34 tabel).
+Berkas laporan: **`Laporan-SIBUKER-PT-Kelompok-F.docx`** (67 halaman, 34 gambar, 34 tabel).
 
-Laporan ini dibangkitkan, bukan diketik manual. Seluruh tabel yang menggambarkan struktur
-basis data (kamus data, daftar foreign key, indeks, dan constraint) dan seluruh diagram ERD
-dibaca langsung dari database `sibuker_pt` yang berjalan. Karena itu isi laporan tidak dapat
-berbeda dari basis data yang sebenarnya diimplementasikan.
+Laporan ini dibangkitkan, bukan diketik manual. Semua tabel yang menggambarkan struktur
+basis data (kamus data, daftar foreign key, indeks, constraint) dan semua diagram ERD dibaca
+langsung dari database `sibuker_pt` yang berjalan. Jadi isi laporannya pasti sama dengan
+basis data yang benar-benar dipakai.
 
-## Setelah membuka di Microsoft Word
+## Setelah dibuka di Microsoft Word
 
-Daftar isi, daftar gambar, dan daftar tabel memakai field Word. Nomor halamannya sudah terisi,
-tetapi bila ada perubahan isi, tekan **Ctrl+A lalu F9** untuk memperbaruinya.
+Daftar isi, daftar gambar, dan daftar tabel memakai field Word. Nomor halamannya sudah terisi.
+Kalau isinya diubah, tekan **Ctrl+A lalu F9** untuk memperbaruinya.
 
 ## Isi folder
 

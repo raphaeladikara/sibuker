@@ -364,8 +364,8 @@ function bagianDepan() {
       alignment: D.AlignmentType.JUSTIFIED,
       children: [
         teks(
-          'Catatan: daftar isi, daftar gambar, dan daftar tabel di atas dibuat sebagai field Microsoft Word. ' +
-            'Tekan Ctrl+A lalu F9 pada Microsoft Word untuk mengisi nomor halamannya.',
+          'Catatan: daftar isi, daftar gambar, dan daftar tabel di atas memakai field Microsoft Word. ' +
+            'Kalau isinya berubah, tekan Ctrl+A lalu F9 untuk memperbarui nomor halamannya.',
           { italics: true, size: 20 }
         ),
       ],
@@ -407,9 +407,9 @@ function kamusData() {
   const isi = [
     h3('3.3.3', 'Kamus Data'),
     p(
-      'Kamus data berikut memuat seluruh 15 tabel beserta ' +
+      'Kamus data di bawah memuat 15 tabel dengan total ' +
         Object.values(skema.tabel).reduce((a, t) => a + t.kolom.length, 0) +
-        ' kolomnya. Kolom Kunci berisi PRI untuk primary key, MUL untuk kolom yang menjadi awalan indeks, dan UNI untuk kolom bernilai unik. Isi tabel ini dibangkitkan langsung dari information_schema basis data yang berjalan, sehingga selalu sesuai dengan implementasinya.'
+        ' kolom. Isi tabel ini kami ambil langsung dari information_schema basis data yang berjalan, jadi isinya pasti sama dengan implementasinya.'
     ),
   ];
 
@@ -447,8 +447,8 @@ function integritas() {
   return [
     h3('3.3.5', 'Integritas Referensial'),
     p(
-      'Seluruh ' + skema.fk.length +
-        ' foreign key memakai ON UPDATE CASCADE. Aturan ON DELETE dipilih berbeda-beda sesuai sifat datanya. Data turunan, yaitu data yang tidak bermakna tanpa induknya, memakai CASCADE. Data acuan yang dipakai bersama memakai RESTRICT, sehingga penghapusannya ditolak basis data selama masih dirujuk. Administrator menonaktifkan data acuan melalui kolom aktif alih-alih menghapusnya.'
+      'Semua ' + skema.fk.length +
+        ' foreign key memakai ON UPDATE CASCADE. Untuk ON DELETE, aturannya kami bedakan sesuai sifat datanya. Data turunan, yaitu data yang tidak ada artinya tanpa induknya, memakai CASCADE. Data acuan yang dipakai bersama memakai RESTRICT, jadi penghapusannya ditolak basis data selama masih dipakai. Administrator tinggal menonaktifkan data acuan lewat kolom aktif, tidak perlu menghapusnya.'
     ),
     ...tabel(
       [2300, 2100, 1100, 2437],
@@ -460,7 +460,7 @@ function integritas() {
 
     h3('3.3.6', 'Aturan Integritas Tambahan'),
     p(
-      'Foreign key hanya mampu menyatakan bahwa baris yang dirujuk memang ada. Aturan yang melibatkan hubungan antarkolom atau antartabel lain dinyatakan dengan CHECK constraint dan trigger, sehingga aturan tersebut tetap berlaku walaupun data ditulis dari luar aplikasi.'
+      'Foreign key cuma bisa memastikan baris yang dirujuk memang ada. Aturan yang melibatkan hubungan antarkolom atau antartabel lain kami tulis sebagai CHECK constraint dan trigger, jadi aturannya tetap jalan walaupun datanya ditulis dari luar aplikasi.'
     ),
     ...tabel(
       [2500, 1600, 3837],
@@ -470,7 +470,7 @@ function integritas() {
       { size: 17 }
     ),
     p(
-      'Empat trigger melengkapi penegakan tersebut untuk aturan yang tidak dapat dinyatakan CHECK constraint, karena CHECK pada MySQL tidak boleh membaca tabel lain.'
+      'Empat trigger melengkapinya untuk aturan yang tidak bisa ditulis sebagai CHECK constraint, sebab CHECK di MySQL tidak boleh membaca tabel lain.'
     ),
     ...tabel(
       [2500, 1500, 3937],
@@ -486,18 +486,18 @@ function viewDanIndeks() {
   const isi = [
     h3('3.3.7', 'View'),
     p(
-      'Dua view dipakai untuk menghitung status centang biru. Status tersebut sengaja tidak disimpan sebagai kolom, sebagaimana diuraikan pada pembahasan bentuk normal ketiga.'
+      'Kami memakai dua view untuk menghitung status centang biru. Statusnya sengaja tidak disimpan sebagai kolom, alasannya sudah dibahas di bagian bentuk normal ketiga.'
     ),
   ];
 
   K.VIEW_PENJELASAN.forEach((v) => {
-    isi.push(p([teks(v.nama, { bold: true }), teks('  —  ' + v.tujuan)]));
+    isi.push(p([teks(v.nama, { bold: true }), teks(', ' + v.tujuan)]));
     isi.push(...butir(v.aturan));
   });
 
   isi.push(
     p(
-      'Bentuk penulisan v_verifikasi_terbaru dipilih secara sadar. Penulisan dengan window function ROW_NUMBER terlihat lebih ringkas, tetapi memaksa MySQL memakai derived table yang tidak dapat digabungkan ke query pemanggil, sehingga seluruh tabel verifikasi dimaterialisasi walaupun yang dibutuhkan hanya satu sertifikat.'
+      'Cara penulisan v_verifikasi_terbaru kami pilih dengan sengaja. Versi yang pakai window function ROW_NUMBER kelihatan lebih ringkas, tetapi memaksa MySQL memakai derived table yang tidak bisa digabung ke query pemanggilnya. Akibatnya seluruh tabel verifikasi dimaterialisasi padahal yang dibutuhkan cuma satu sertifikat.'
     ),
     kode([
       'CREATE VIEW v_verifikasi_terbaru AS',
@@ -513,7 +513,7 @@ function viewDanIndeks() {
       '  );',
     ]),
     p(
-      'View kedua membaca view pertama, sehingga aturan mengenai verifikasi mana yang berlaku hanya ditulis satu kali di seluruh sistem.',
+      'View kedua membaca view pertama, jadi aturan soal verifikasi mana yang berlaku cuma ditulis sekali di seluruh sistem.',
       { after: 80 }
     ),
     kode([
@@ -547,7 +547,7 @@ function viewDanIndeks() {
   isi.push(
     h3('3.3.8', 'Indeks dan Optimasi Query'),
     p(
-      'Indeks dirancang mengikuti query yang benar-benar dijalankan halaman daftar, dengan urutan kolom yang sama persis dengan urutan penyaringan dan pengurutannya. Indeks unik sekaligus berperan menegakkan aturan bisnis, misalnya satu pencari kerja tidak dapat melamar lowongan yang sama dua kali.'
+      'Indeks kami rancang mengikuti query yang memang dijalankan halaman daftar, dengan urutan kolom yang persis sama dengan urutan penyaringan dan pengurutannya. Indeks unik sekalian dipakai menegakkan aturan bisnis, misalnya satu pencari kerja tidak bisa melamar lowongan yang sama dua kali.'
     ),
     ...tabel(
       [2300, 1500, 2637, 1500],
@@ -575,7 +575,7 @@ function normalisasi() {
   const isi = [
     h3('3.3.4', 'Normalisasi'),
     p(
-      'Rancangan basis data SIBUKER-PT memenuhi bentuk normal ketiga. Bagian ini menguraikan pemenuhan setiap bentuk normal beserta contoh rancangan yang sengaja dihindari, agar alasan di balik pemisahan tabel dapat ditelusuri.'
+      'Rancangan basis data SIBUKER-PT sudah memenuhi bentuk normal ketiga. Bagian ini menjelaskan pemenuhan tiap bentuk normal sekaligus contoh rancangan yang sengaja kami hindari, supaya alasan di balik pemisahan tabelnya jelas.'
     ),
   ];
   K.NORMALISASI.forEach((n) => {
@@ -595,7 +595,7 @@ function normalisasi() {
       )
     );
   });
-  isi.push(p([teks('Denormalisasi terkendali. ', { bold: true }), teks(K.DENORMALISASI)]));
+  isi.push(p([teks('Denormalisasi yang disengaja. ', { bold: true }), teks(K.DENORMALISASI)]));
   return isi;
 }
 
@@ -603,10 +603,10 @@ function alurPeran() {
   const isi = [
     h2('3.4', 'Hak Akses dan Operasi Basis Data per Peran'),
     p(
-      'Peran tidak disimpan sebagai satu kolom, melainkan ditentukan oleh keberadaan baris pada tabel spesialisasi. Sebuah akun berperan sebagai pencari kerja bila memiliki baris pada tabel pencari_kerja, sebagai perusahaan bila memiliki baris pada perusahaan, sebagai verifikator bila memiliki baris pada verifikator, dan sebagai administrator bila kolom pengguna.is_admin bernilai benar. Dengan cara ini satu akun dapat memegang lebih dari satu peran, misalnya seorang praktisi yang menjadi verifikator sekaligus pencari kerja.'
+      'Peran tidak disimpan di satu kolom, tetapi ditentukan dari ada tidaknya baris di tabel spesialisasi. Sebuah akun jadi pencari kerja kalau punya baris di tabel pencari_kerja, jadi perusahaan kalau punya baris di perusahaan, jadi verifikator kalau punya baris di verifikator, dan jadi administrator kalau kolom pengguna.is_admin bernilai benar. Dengan cara ini satu akun bisa memegang lebih dari satu peran, misalnya praktisi yang jadi verifikator sekaligus pencari kerja.'
     ),
     p(
-      'Setiap peran hanya dapat mengubah data miliknya sendiri. Rincian hak akses setiap peran terhadap setiap tabel ditunjukkan pada tabel berikut, dengan C untuk create, R untuk read, U untuk update, dan D untuk delete.'
+      'Tiap peran cuma bisa mengubah data miliknya sendiri. Rincian hak akses tiap peran terhadap tiap tabel ada di tabel berikut, dengan C untuk create, R untuk read, U untuk update, dan D untuk delete.'
     ),
     ...tabel(
       [1737, 1100, 1300, 1300, 1300, 1200],
@@ -616,7 +616,7 @@ function alurPeran() {
       { size: 16 }
     ),
     p(
-      'Subbab berikut menelusuri antarmuka setiap peran dan memetakan tombol serta aksi yang tersedia ke operasi basis data yang dijalankannya.'
+      'Subbab berikut menelusuri antarmuka tiap peran dan memetakan tombol serta aksinya ke operasi basis data yang dijalankan.'
     ),
   ];
 
@@ -672,12 +672,12 @@ function bab3() {
 
     h2('3.1', 'Deskripsi Sistem'),
     p(
-      'SIBUKER-PT merupakan sistem berbasis web yang mempertemukan pencari kerja dengan perusahaan berdasarkan keahlian yang dimiliki. Pencari kerja dapat mencantumkan keahlian meskipun belum memiliki sertifikat, mengunggah sertifikat dalam bentuk PDF secara opsional, mencari dan menyaring lowongan, mengajukan lamaran, serta memantau proses seleksinya.'
+      'SIBUKER-PT adalah sistem berbasis web yang mempertemukan pencari kerja dengan perusahaan lewat keahlian yang dimiliki. Pencari kerja bisa mencantumkan keahlian walaupun belum punya sertifikat, mengunggah sertifikat PDF kalau ada, mencari dan menyaring lowongan, melamar, lalu memantau proses seleksinya.'
     ),
     p(
-      'Perusahaan membuat lowongan dan menentukan keahlian yang dibutuhkan, termasuk menetapkan apakah suatu keahlian wajib terverifikasi. Sertifikat yang diunggah diperiksa verifikator untuk memastikan keasliannya dan menentukan keahlian yang benar-benar dibuktikan. Keahlian yang telah disetujui memperoleh tanda centang biru pada profil pencari kerja. Dengan demikian pencarian kandidat dapat dilakukan secara lebih fleksibel karena tidak seluruh keahlian harus memiliki sertifikat.'
+      'Perusahaan membuat lowongan dan menentukan keahlian yang dibutuhkan, termasuk apakah keahlian itu wajib terverifikasi. Sertifikat yang diunggah diperiksa verifikator untuk memastikan keasliannya sekaligus menentukan keahlian mana yang benar-benar dibuktikan. Keahlian yang disetujui dapat tanda centang biru di profil pencari kerja. Pencarian kandidat jadi lebih fleksibel karena tidak semua keahlian harus punya sertifikat.'
     ),
-    p('SIBUKER-PT melibatkan empat peran pengguna yang sudah masuk, ditambah pengunjung tanpa akun.'),
+    p('SIBUKER-PT punya empat peran pengguna yang sudah masuk, ditambah pengunjung tanpa akun.'),
     ...tabel(
       [1500, 2300, 4137],
       ['Peran', 'Cara memperoleh akses', 'Kemampuan utama'],
@@ -688,11 +688,11 @@ function bab3() {
 
     h2('3.2', 'Arsitektur Sistem'),
     p(
-      'SIBUKER-PT dirancang dengan arsitektur client-server. Antarmuka disusun menggunakan Blade, logika aplikasi ditangani Laravel 13 berbasis PHP, dan data disimpan pada MySQL 8.4. Berkas PDF sertifikat tidak disimpan di dalam basis data, melainkan pada Laravel File Storage, sedangkan basis data hanya menyimpan lokasi berkasnya.'
+      'SIBUKER-PT memakai arsitektur client-server. Antarmukanya disusun pakai Blade, logika aplikasinya ditangani Laravel 13 berbasis PHP, dan datanya disimpan di MySQL 8.4. Berkas PDF sertifikat tidak disimpan di dalam basis data, tetapi di Laravel File Storage. Basis datanya cuma menyimpan lokasi berkasnya.'
     ),
     ...gambar(path.join(GBR_ERD, 'arsitektur.png'), 'Alur permintaan pengguna dari peramban hingga basis data'),
     p(
-      'Permintaan dari peramban diterima routing, diperiksa middleware peran, lalu diproses controller. Controller memakai model Eloquent untuk membaca atau menulis basis data, kemudian hasilnya disusun Blade menjadi halaman HTML. Permintaan yang tidak sesuai peran dihentikan pada lapisan middleware sebelum menyentuh basis data.'
+      'Permintaan dari peramban diterima routing, dicek middleware peran, lalu diproses controller. Controller memakai model Eloquent untuk membaca atau menulis basis data, hasilnya lalu disusun Blade jadi halaman HTML. Permintaan yang perannya tidak cocok dihentikan di lapisan middleware sebelum menyentuh basis data.'
     ),
     ...tabel(
       [1700, 2100, 4137],
@@ -704,12 +704,12 @@ function bab3() {
 
     h2('3.3', 'Perancangan Basis Data'),
     p(
-      'Basis data dirancang dalam dua tingkat. ERD konseptual menggambarkan entitas dan relasinya tanpa detail teknis, sedangkan ERD fisik menggambarkan struktur tabel yang benar-benar diterapkan pada MySQL. Seluruh rancangan diwujudkan melalui migration Laravel dan tersedia pula sebagai satu berkas SQL utuh pada database/SIBUKER_PT.sql.'
+      'Basis data kami rancang dalam dua tingkat. ERD konseptual menggambarkan entitas dan relasinya tanpa detail teknis, sedangkan ERD fisik menggambarkan struktur tabel yang benar-benar dipakai di MySQL. Semua rancangannya diwujudkan lewat migration Laravel, dan tersedia juga sebagai satu berkas SQL utuh di database/SIBUKER_PT.sql.'
     ),
 
     h3('3.3.1', 'ERD Konseptual'),
     p(
-      'ERD konseptual menampilkan 13 entitas tanpa kolom, tipe data, maupun kunci. Dua tabel penghubung murni, yaitu kewenangan_verifikator dan bukti_keahlian, tidak ditampilkan sebagai entitas tersendiri melainkan dinyatakan sebagai relasi banyak ke banyak, karena keduanya tidak membawa atribut apa pun di luar pasangan kuncinya. Sebaliknya klaim_keahlian, syarat_keahlian, dan lamaran tetap ditampilkan sebagai entitas asosiatif karena ketiganya membawa atribut yang hanya bermakna pada hubungan itu sendiri, misalnya level klaim, bobot syarat, dan skor kecocokan.'
+      'ERD konseptual menampilkan 13 entitas tanpa kolom, tipe data, maupun kunci. Dua tabel penghubung murni, yaitu kewenangan_verifikator dan bukti_keahlian, tidak kami tampilkan sebagai entitas tersendiri tetapi sebagai relasi banyak ke banyak, sebab keduanya tidak punya atribut apa pun selain pasangan kuncinya. Sebaliknya klaim_keahlian, syarat_keahlian, dan lamaran tetap kami tampilkan sebagai entitas asosiatif, karena ketiganya punya atribut yang cuma ada artinya di hubungan itu sendiri, misalnya level klaim, bobot syarat, dan skor kecocokan.'
     ),
     ...gambar(path.join(GBR_ERD, 'konseptual.png'), 'ERD konseptual SIBUKER-PT'),
     ...tabel(
@@ -722,7 +722,7 @@ function bab3() {
 
     h3('3.3.2', 'ERD Fisik'),
     p(
-      'ERD fisik memuat 15 tabel beserta tipe data, primary key, foreign key, dan unique constraint. Agar tetap terbaca, diagram disajikan per modul. Diagram utuh yang memuat seluruh tabel sekaligus disertakan pada Lampiran A.'
+      'ERD fisik memuat 15 tabel lengkap dengan tipe data, primary key, foreign key, dan unique constraint. Supaya tetap terbaca, diagramnya kami pisah per modul. Diagram utuh yang memuat semua tabel sekaligus ada di Lampiran A.'
     ),
   ];
 

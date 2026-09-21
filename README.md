@@ -53,14 +53,14 @@ Data demo fiktif. Seeder juga membuat PDF sertifikat contoh di `storage/app/priv
 | Tampilan dan CSS | `resources/views`, `public/css/sibuker.css` |
 
 Status centang biru tidak disimpan di tabel. Aturan "verifikasi terbaru yang masih sah"
-ditulis satu kali di view `v_verifikasi_terbaru`; `v_status_keahlian` dan
-`Bukti::denganStatus()` sama-sama membacanya dari sana, sehingga aplikasi dan basis data
-tidak bisa berbeda pendapat soal apakah sebuah keahlian masih terverifikasi.
+ditulis sekali saja di view `v_verifikasi_terbaru`. Baik `v_status_keahlian` maupun
+`Bukti::denganStatus()` membacanya dari sana, jadi aplikasi dan database tidak mungkin
+berbeda pendapat soal apakah sebuah keahlian masih terverifikasi.
 
-Empat aturan yang tidak dapat dinyatakan foreign key maupun CHECK dijaga trigger:
-sebuah sertifikat hanya boleh membuktikan keahlian milik pemiliknya sendiri, hanya
-verifikasi berkeputusan disetujui yang boleh menautkan keahlian, dan seorang verifikator
-tidak boleh memeriksa sertifikat miliknya sendiri.
+Tiga aturan yang tidak bisa ditulis sebagai foreign key atau CHECK dijaga trigger. Sebuah
+sertifikat cuma boleh membuktikan keahlian milik pemiliknya sendiri, cuma verifikasi yang
+sudah disetujui yang boleh menautkan keahlian, dan verifikator tidak boleh memeriksa
+sertifikat miliknya sendiri.
 
 ## Test
 
