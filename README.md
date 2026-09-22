@@ -1,4 +1,4 @@
-# SIBUKER-PT
+# SIBUKER
 
 Bursa kerja berbasis keahlian terverifikasi. Tugas UTS Basis Data, Kelompok F SD-A2, S1 Teknologi Sains Data, Universitas Airlangga.
 

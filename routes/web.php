@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| SIBUKER-PT
+| SIBUKER
 |--------------------------------------------------------------------------
 | Lima kelompok route: publik, pencari kerja, perusahaan, verifikator, admin.
 | Tiap kelompok peran punya prefix URL, prefix nama route, dan middleware
@@ -89,6 +89,7 @@ Route::prefix('perusahaan')->name('perusahaan.')->middleware(['auth', 'peran:per
 // ---------------------------------------------------------------------
 Route::prefix('verifikator')->name('verifikator.')->middleware(['auth', 'peran:verifikator'])->group(function () {
     Route::get('/dashboard', [Verifikator\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/pemilik/{pengguna}', [Verifikator\DashboardController::class, 'pemilik'])->name('pemilik.show');
     Route::get('/periksa/{bukti}', [Verifikator\PemeriksaanController::class, 'create'])->name('periksa.create');
     Route::post('/periksa/{bukti}', [Verifikator\PemeriksaanController::class, 'store'])->name('periksa.store');
     Route::get('/riwayat', [Verifikator\RiwayatController::class, 'index'])->name('riwayat.index');

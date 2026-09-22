@@ -1,6 +1,6 @@
 # Landing image
 
-`briefcase.png` is the image supplied by the user for the SIBUKER-PT landing page:
+`briefcase.png` is the image supplied by the user for the SIBUKER landing page:
 `ChatGPT Image Sep 16, 2026, 08_06_42 PM.png`.
 
 The original pixels and embedded provenance are preserved. Cropping and framing

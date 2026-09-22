@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/landing.css') }}?v={{ filemtime(public_path('css/landing.css')) }}">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230a66c2'/%3E%3Cpath d='M9 16l5 5 9-11' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="{{ asset('images/sibuker-logo.png') }}">
 </head>
 <body class="landing">
     <a class="skip-link" href="#konten">Langsung ke konten</a>
     <header class="site-header">
         <div class="container header-inner">
-            <a class="wordmark" href="{{ route('beranda') }}" aria-label="SIBUKER, beranda"><span class="brand-mark" aria-hidden="true"><i class="bi bi-check-lg"></i></span>SIBUKER</a>
+            <a class="wordmark" href="{{ route('beranda') }}" aria-label="SIBUKER, beranda">@include('partials.brand-mark') SIBUKER</a>
             <nav class="desktop-nav" aria-label="Navigasi utama"><a href="#cara-kerja">Cara kerja</a><a href="#lowongan">Pilihan lowongan</a><a href="#perusahaan">Untuk perusahaan</a></nav>
             <div class="header-actions">
                 @auth

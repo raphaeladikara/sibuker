@@ -451,7 +451,8 @@ h1, h2, h3, h4, .brand, .footer-brand { font-family: "Plus Jakarta Sans", system
 .topbar { background: rgba(255, 255, 255, .97); }
 .topbar .wrap { height: 84px; gap: 20px; }
 .brand { gap: 8px; font-size: 17px; letter-spacing: -.05em; }
-.brand-mark { display: inline-grid; place-items: center; width: 30px; height: 32px; border-radius: 9px; background: var(--indigo); color: #fff; font-size: 24px; transform: rotate(-6deg); }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; overflow: hidden; }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.42); }
 .brand-suffix { color: var(--indigo); }
 .nav { align-items: center; gap: 2px; }
 .nav a { min-height: 44px; padding: 10px 12px; border-radius: 9px; font-size: 12px; }
@@ -660,7 +661,7 @@ h1, h2, h3, h4, .brand, .footer-brand { font-family: "Plus Jakarta Sans", system
 }
 @media (max-width: 520px) {
     .brand span { display: inline; }
-    .brand .brand-mark { display: inline-grid; width: 26px; height: 28px; font-size: 21px; }
+    .brand .brand-mark { display: inline-grid; width: 30px; height: 30px; }
     .brand { font-size: 14px; gap: 6px; }
     .brand .brand-suffix { display: none; }
     .top-actions { gap: 4px; }

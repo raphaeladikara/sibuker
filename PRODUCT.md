@@ -34,7 +34,7 @@ Centang biru melekat pada pasangan pencari kerja + keahlian, bukan pada profil. 
 
 ## Brand Commitments
 
-- Nama: SIBUKER-PT.
+- Nama: SIBUKER.
 - Referensi visual dari pengguna (2026-09-15): dua shot Dribbble "FINDIT" job board. Nav putih dengan penanda aktif garis indigo, strip pencarian bersegmen dengan tombol indigo penuh, kolom filter kiri, kartu lowongan putih dengan tag pastel, satu kartu unggulan indigo pekat. Pengguna minta tampilan yang tidak terasa buatan AI.
 
 ## Evidence on Hand

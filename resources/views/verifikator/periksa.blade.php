@@ -4,7 +4,7 @@
 
 @section('content')
 @php use App\Support\Format; @endphp
-<a href="{{ route('verifikator.dashboard') }}" class="back"><i class="bi bi-arrow-return-left"></i> Antrean</a>
+<a href="{{ route('verifikator.pemilik.show', $bukti->pengguna_id) }}" class="back"><i class="bi bi-arrow-return-left"></i> Sertifikat {{ $bukti->pengguna->nama }}</a>
 <div class="page-head">
     <div>
         <h1>{{ $bukti->judul }}</h1>

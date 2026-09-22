@@ -118,7 +118,7 @@ class SibukerTest extends TestCase
             'keputusan' => 'disetujui',
             'klaim_keahlian_id' => [3],
             'berlaku_sampai' => now()->addYear()->format('Y-m-d'),
-        ])->assertRedirect('/verifikator/dashboard');
+        ])->assertRedirect('/verifikator/pemilik/2');
 
         $this->assertSame(1, (int) DB::table('v_status_keahlian')->where('klaim_keahlian_id', 3)->value('terverifikasi'));
         $this->assertNull(Bukti::dalamAntrean()->find(2));

@@ -73,7 +73,7 @@ class PemeriksaanController extends Controller
             'menunggu' => 'Pemeriksaan ditunda. Sertifikat tetap di antreanmu.',
         ][$data['keputusan']];
 
-        return redirect()->route('verifikator.dashboard')->with('success', $pesan);
+        return redirect()->route('verifikator.pemilik.show', $bukti->pengguna_id)->with('success', $pesan);
     }
 
     /** Memuat bukti dan memastikan verifikator boleh memeriksanya. */

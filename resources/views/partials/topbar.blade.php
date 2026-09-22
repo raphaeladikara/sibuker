@@ -43,7 +43,7 @@
 <header class="topbar">
     <div class="wrap">
         <a class="brand" href="{{ $pengguna ? route($pengguna->ruteDashboard($peranAktif)) : route('beranda') }}" aria-label="SIBUKER, halaman utama">
-            <span class="brand-mark"><i class="bi bi-check2" aria-hidden="true"></i></span>
+            @include('partials.brand-mark')
             <span>SIBUKER</span>
         </a>
 
