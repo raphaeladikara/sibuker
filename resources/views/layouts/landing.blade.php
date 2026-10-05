@@ -20,10 +20,10 @@
             <nav class="desktop-nav" aria-label="Navigasi utama"><a href="#cara-kerja">Cara kerja</a><a href="#lowongan">Pilihan lowongan</a><a href="#perusahaan">Untuk perusahaan</a></nav>
             <div class="header-actions">
                 @auth
-                    <a class="button button-blue" href="{{ route(auth()->user()->ruteDashboard()) }}">Ke dashboard <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                    <a class="button button-blue" href="{{ route(auth()->user()->ruteDashboard()) }}">Ke dashboard</a>
                 @else
                     <a class="login-link" href="{{ route('masuk') }}">Masuk</a>
-                    <a class="button button-blue" href="{{ route('daftar') }}">Daftar <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                    <a class="button button-blue" href="{{ route('daftar') }}">Daftar</a>
                 @endauth
             </div>
             <details class="mobile-nav"><summary aria-label="Buka navigasi"><i class="bi bi-list" aria-hidden="true"></i></summary><nav aria-label="Navigasi ponsel"><a href="#cara-kerja">Cara kerja</a><a href="#lowongan">Pilihan lowongan</a><a href="#perusahaan">Untuk perusahaan</a><a href="{{ route('lowongan.index') }}">Semua lowongan</a></nav></details>
@@ -44,6 +44,16 @@
                 mobileMenu.open = false;
                 mobileMenu.querySelector('summary').focus();
             }
+        });
+        const principles = document.querySelector('.principles');
+        const principlesToggle = principles?.querySelector('.principles-toggle');
+        principlesToggle?.addEventListener('click', () => {
+            const paused = principles.classList.toggle('is-paused');
+            const label = paused ? 'Lanjutkan teks berjalan' : 'Jeda teks berjalan';
+            principlesToggle.setAttribute('aria-pressed', String(paused));
+            principlesToggle.setAttribute('aria-label', label);
+            principlesToggle.title = label;
+            principlesToggle.querySelector('i').className = paused ? 'bi bi-play-fill' : 'bi bi-pause-fill';
         });
     </script>
 </body>

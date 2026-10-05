@@ -6,9 +6,8 @@
 @php use App\Support\Format; @endphp
 <div class="page-head workspace-intro">
     <div>
-        <span class="eyebrow">KEAHLIAN YANG BISA DIPERCAYA</span>
-            <h1>Antrean pemeriksaan</h1>
-        <p class="sub">{{ $verifikator->pengguna->nama }} &middot; {{ $verifikator->instansi }}. Hanya sertifikat dari pemilik yang punya keahlian di bidang kewenanganmu yang tampil di sini.</p>
+        <h1>Antrean pemeriksaan</h1>
+        <p class="sub">Tinjau sertifikat yang diajukan dan tentukan hasil verifikasinya.</p>
     </div>
 </div>
 

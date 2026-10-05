@@ -451,8 +451,8 @@ h1, h2, h3, h4, .brand, .footer-brand { font-family: "Plus Jakarta Sans", system
 .topbar { background: rgba(255, 255, 255, .97); }
 .topbar .wrap { height: 84px; gap: 20px; }
 .brand { gap: 8px; font-size: 17px; letter-spacing: -.05em; }
-.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; overflow: hidden; }
-.brand-mark img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.42); }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; overflow: hidden; border: 1px solid #d8e5f3; border-radius: 50%; background: #fff; }
+.brand-mark img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.3); }
 .brand-suffix { color: var(--indigo); }
 .nav { align-items: center; gap: 2px; }
 .nav a { min-height: 44px; padding: 10px 12px; border-radius: 9px; font-size: 12px; }

@@ -10,19 +10,33 @@
             <p class="eyebrow"><span class="live-dot"></span> PELUANG BARU, DIMULAI DARI KAMU</p>
             <h1 id="hero-title">Bawa keahlianmu.<br>Temukan <span>peluangmu.</span></h1>
             <p class="hero-description">Karier yang tepat dimulai dari apa yang kamu bisa. Buktikan keahlianmu dan temukan perusahaan yang menghargainya.</p>
-            <div class="hero-actions"><a href="{{ $mulai }}" class="button button-blue">{{ auth()->check() ? 'Buka dashboard' : 'Mulai perjalananmu' }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a><a href="{{ route('lowongan.index') }}" class="text-link">Jelajahi lowongan <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+            <div class="hero-actions"><a href="{{ $mulai }}" class="button button-blue">{{ auth()->check() ? 'Buka dashboard' : 'Mulai perjalananmu' }}</a><a href="{{ route('lowongan.index') }}" class="text-link">Jelajahi lowongan <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
             <p class="hero-note"><i class="bi bi-check-circle" aria-hidden="true"></i> Punya keahlian? Kamu punya kesempatan.</p>
         </div>
         <div class="hero-art">
             <span class="art-orbit" aria-hidden="true"></span><span class="art-spark" aria-hidden="true">✳</span>
             <figure class="bag-frame"><img src="{{ asset('images/landing/briefcase.png') }}" width="1672" height="941" fetchpriority="high" alt="Tas kerja kulit cokelat, siap menemani langkah karier berikutnya"></figure>
             <div class="proof-card"><span class="proof-icon"><i class="bi bi-patch-check-fill" aria-hidden="true"></i></span><div><small>CONTOH KEAHLIAN</small><strong>SQL · Terverifikasi</strong><span>Kemampuan yang bisa dibuktikan.</span></div></div>
-            <div class="career-sticker"><i class="bi bi-arrow-up-right" aria-hidden="true"></i><span>Langkah baru.<br><b>Versi terbaikmu.</b></span></div>
+            <div class="career-sticker"><span>Langkah baru.<br><b>Versi terbaikmu.</b></span></div>
             <span class="art-caption">YOUR SKILLS. YOUR NEXT CHAPTER.</span>
         </div>
     </section>
 </div>
-<div class="principles" aria-label="Prinsip SIBUKER"><div class="container principles-inner"><span>Keahlian jadi pembeda</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Verifikasi yang transparan</span><i class="bi bi-asterisk" aria-hidden="true"></i><span>Peluang untuk berkembang</span><i class="bi bi-asterisk" aria-hidden="true"></i></div></div>
+<div class="principles" aria-label="Prinsip SIBUKER">
+    <div class="principles-inner">
+        <div class="principles-group">
+            <span>Keahlian jadi pembeda</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+            <span>Verifikasi yang transparan</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+            <span>Peluang untuk berkembang</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+        </div>
+        <div class="principles-group" aria-hidden="true">
+            <span>Keahlian jadi pembeda</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+            <span>Verifikasi yang transparan</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+            <span>Peluang untuk berkembang</span><i class="bi bi-asterisk" aria-hidden="true"></i>
+        </div>
+    </div>
+    <button class="principles-toggle" type="button" aria-label="Jeda teks berjalan" aria-pressed="false" title="Jeda teks berjalan"><i class="bi bi-pause-fill" aria-hidden="true"></i></button>
+</div>
 
 <section class="container section benefits" id="cara-kerja" aria-labelledby="benefits-title">
     <div class="section-heading"><div><p class="eyebrow">LEBIH DARI SEKADAR CV</p><h2 id="benefits-title">Kemampuanmu punya cerita.<br>Biar peluang yang menemukannya.</h2></div><p>Kamu membawa keahlian.<br>Kami membantu membuatnya terlihat.</p></div>
@@ -34,8 +48,8 @@
 </section>
 
 <section class="jobs-section" id="lowongan" aria-labelledby="jobs-title"><div class="container section">
-    <div class="section-heading"><div><p class="eyebrow">LANGKAH BERIKUTNYA ADA DI SINI</p><h2 id="jobs-title">Peluang baru, untuk kamu.</h2></div><a href="{{ route('lowongan.index') }}" class="text-link">Lihat semua lowongan <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a></div>
-    @if ($keahlianPopuler->isNotEmpty())<div class="explore-skills"><span>Jelajahi keahlian</span>@foreach ($keahlianPopuler->take(5) as $k)<a href="{{ route('lowongan.index', ['keahlian' => $k->id]) }}">{{ $k->nama }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>@endforeach</div>@endif
+    <div class="section-heading"><div><p class="eyebrow">LANGKAH BERIKUTNYA ADA DI SINI</p><h2 id="jobs-title">Peluang baru, untuk kamu.</h2></div><a href="{{ route('lowongan.index') }}" class="text-link">Lihat semua lowongan</a></div>
+    @if ($keahlianPopuler->isNotEmpty())<div class="explore-skills"><span>Jelajahi keahlian</span>@foreach ($keahlianPopuler->take(5) as $k)<a href="{{ route('lowongan.index', ['keahlian' => $k->id]) }}">{{ $k->nama }}</a>@endforeach</div>@endif
     <div class="landing-jobs">
         @forelse ($lowongan->take(3) as $l)
             <article class="opportunity">
@@ -43,7 +57,7 @@
                 <p class="company-name">{{ $l->perusahaan->nama }}</p><h3><a href="{{ route('lowongan.show', $l) }}">{{ $l->posisi }}</a></h3>
                 <p class="job-location"><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ $l->lokasi ?: 'Lokasi belum diisi' }}</p>
                 <div class="job-skills">@foreach ($l->syarat->take(3) as $s)<span>{{ $s->keahlian->nama }}</span>@endforeach</div>
-                <a class="job-detail" href="{{ route('lowongan.show', $l) }}" aria-label="Lihat lowongan {{ $l->posisi }} di {{ $l->perusahaan->nama }}">Lihat peluang <span><i class="bi bi-arrow-up-right" aria-hidden="true"></i></span></a>
+                <a class="job-detail" href="{{ route('lowongan.show', $l) }}" aria-label="Lihat lowongan {{ $l->posisi }} di {{ $l->perusahaan->nama }}">Lihat peluang</a>
             </article>
         @empty
             <div class="jobs-empty"><i class="bi bi-briefcase" aria-hidden="true"></i><h3>Peluang berikutnya sedang disiapkan.</h3><p>Lengkapi profilmu sambil menunggu lowongan baru.</p><a class="text-link" href="{{ $mulai }}">Siapkan profilmu <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
@@ -52,6 +66,6 @@
     <p class="jobs-note"><i class="bi bi-info-circle" aria-hidden="true"></i> Jelajahi lowongan tanpa akun. Masuk untuk melihat kecocokanmu dan mulai melamar.</p>
 </div></section>
 
-<section class="container section" id="perusahaan" aria-labelledby="company-title"><div class="company-banner"><div><p class="eyebrow">UNTUK PERUSAHAAN</p><h2 id="company-title">Tim hebat dimulai dari<br>keahlian yang tepat.</h2><p>Temukan kandidat berdasarkan kemampuan yang dibutuhkan timmu, dengan bukti keahlian yang dapat diperiksa.</p><a href="{{ auth()->check() ? route(auth()->user()->ruteDashboard()) : route('daftar') }}" class="button button-navy">{{ auth()->check() ? 'Buka dashboard' : 'Mulai sebagai perusahaan' }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a></div><div class="company-stats"><div><strong>{{ $statistik['perusahaan'] }}</strong><span>perusahaan aktif</span></div><div><strong>{{ $statistik['lowongan'] }}</strong><span>lowongan dibuka</span></div><div><strong>{{ $statistik['keahlian'] }}</strong><span>jenis keahlian</span></div><div><strong>{{ $statistik['terverifikasi'] }}</strong><span>keahlian terverifikasi</span></div></div></div></section>
-<section class="container closing" aria-labelledby="closing-title"><div><p class="eyebrow">MASA DEPANMU, MULAI SEKARANG</p><h2 id="closing-title">Keahlian sudah ada.<br>Tinggal langkah pertamanya.</h2></div><a href="{{ $mulai }}" class="button button-blue">{{ auth()->check() ? 'Lanjut ke dashboard' : 'Buat profilmu' }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a></section>
+<section class="container section" id="perusahaan" aria-labelledby="company-title"><div class="company-banner"><div><p class="eyebrow">UNTUK PERUSAHAAN</p><h2 id="company-title">Tim hebat dimulai dari<br>keahlian yang tepat.</h2><p>Temukan kandidat berdasarkan kemampuan yang dibutuhkan timmu, dengan bukti keahlian yang dapat diperiksa.</p><a href="{{ auth()->check() ? route(auth()->user()->ruteDashboard()) : route('daftar') }}" class="button button-navy">{{ auth()->check() ? 'Buka dashboard' : 'Mulai sebagai perusahaan' }}</a></div><div class="company-stats"><div><strong>{{ $statistik['perusahaan'] }}</strong><span>perusahaan aktif</span></div><div><strong>{{ $statistik['lowongan'] }}</strong><span>lowongan dibuka</span></div><div><strong>{{ $statistik['keahlian'] }}</strong><span>jenis keahlian</span></div><div><strong>{{ $statistik['terverifikasi'] }}</strong><span>keahlian terverifikasi</span></div></div></div></section>
+<section class="container closing" aria-labelledby="closing-title"><div><p class="eyebrow">MASA DEPANMU, MULAI SEKARANG</p><h2 id="closing-title">Keahlian sudah ada.<br>Tinggal langkah pertamanya.</h2></div><a href="{{ $mulai }}" class="button button-blue">{{ auth()->check() ? 'Lanjut ke dashboard' : 'Buat profilmu' }}</a></section>
 @endsection
