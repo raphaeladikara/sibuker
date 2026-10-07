@@ -29,8 +29,9 @@
                 <input id="nomor_telepon" name="nomor_telepon" value="{{ old('nomor_telepon', $item->nomor_telepon ?? '') }}" class="input">
             </div>
             <div class="field">
-                <label class="label" for="password">Kata sandi @if ($item)<span class="opsi">(kosongkan kalau tidak diganti)</span>@endif</label>
+                <label class="label" for="password">Kata sandi</label>
                 <input id="password" type="password" name="password" @class(['input', 'is-invalid' => $errors->has('password')]) autocomplete="new-password" @required(! $item)>
+                @if ($item)<span class="hint">Kosongkan kalau tidak diganti.</span>@endif
             </div>
         </div>
         <div class="field" style="margin-top:22px">

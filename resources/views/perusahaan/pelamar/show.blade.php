@@ -17,7 +17,7 @@
         <form action="{{ route('perusahaan.pelamar.status', $lamaran) }}" method="POST" class="page-actions">
             @csrf @method('PATCH')
             <label class="sr-only" for="status">Status lamaran</label>
-            <select id="status" name="status" class="select" style="height:38px;width:170px">
+            <select id="status" name="status" class="select" style="height:42px;width:170px">
                 @foreach (array_diff(Format::STATUS_LAMARAN, ['ditarik']) as $s)
                     <option value="{{ $s }}" @selected($lamaran->status === $s)>{{ Format::label($s) }}</option>
                 @endforeach

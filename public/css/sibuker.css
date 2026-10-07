@@ -236,9 +236,10 @@ a.chip:hover { background: var(--indigo-50); color: var(--indigo); text-decorati
 .check input:checked ~ .count { background: var(--indigo-50); color: var(--indigo); }
 
 /* ---------- Form ---------- */
-.field { display: grid; gap: 6px; }
+.field { display: grid; gap: 6px; align-content: start; }
 .field + .field, .fields + .field, .field + .fields { margin-top: 18px; }
 .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 18px; }
+.fields > .field, .baris-baru > .field { margin-top: 0; }
 .label { font-size: 13px; font-weight: 500; color: var(--ink); }
 .label .opsi { color: var(--ink-3); font-weight: 400; }
 .hint { font-size: 12.5px; color: var(--ink-3); }
