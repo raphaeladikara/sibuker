@@ -71,3 +71,22 @@ document.addEventListener('DOMContentLoaded', () => {
         sinkron();
     }
 });
+
+// Tooltip grafik analitik: satu elemen dipakai bersama, isinya dari atribut data-tip.
+document.addEventListener('DOMContentLoaded', () => {
+    const tip = document.querySelector('.dw-tip');
+    if (!tip) return;
+    const tampil = (el, x, y) => {
+        tip.textContent = el.dataset.tip;
+        tip.hidden = false;
+        const lebar = tip.offsetWidth;
+        tip.style.left = Math.min(window.innerWidth - lebar - 12, x + 14) + 'px';
+        tip.style.top = (y + 16) + 'px';
+    };
+    document.querySelectorAll('[data-tip]').forEach((el) => {
+        el.addEventListener('mousemove', (e) => tampil(el, e.clientX, e.clientY));
+        el.addEventListener('mouseleave', () => { tip.hidden = true; });
+        el.addEventListener('focus', () => { const r = el.getBoundingClientRect(); tampil(el, r.left, r.bottom - 8); });
+        el.addEventListener('blur', () => { tip.hidden = true; });
+    });
+});

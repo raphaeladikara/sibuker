@@ -64,6 +64,22 @@ return [
             ]) : [],
         ],
 
+        // Data warehouse hasil ETL Pentaho (UAS). Defaultnya server yang sama dengan aplikasi,
+        // hanya beda database, jadi cukup DW_DATABASE yang diatur.
+        'dw' => [
+            'driver' => 'mysql',
+            'host' => env('DW_HOST', env('DB_HOST', '127.0.0.1')),
+            'port' => env('DW_PORT', env('DB_PORT', '3306')),
+            'database' => env('DW_DATABASE', 'sibuker_dw'),
+            'username' => env('DW_USERNAME', env('DB_USERNAME', 'root')),
+            'password' => env('DW_PASSWORD', env('DB_PASSWORD', '')),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),

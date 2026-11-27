@@ -101,6 +101,7 @@ Route::prefix('verifikator')->name('verifikator.')->middleware(['auth', 'peran:v
 // ---------------------------------------------------------------------
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'peran:admin'])->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/analitik', [Admin\AnalitikController::class, 'index'])->name('analitik');
     Route::resource('pengguna', Admin\PenggunaController::class)->except(['show'])->parameters(['pengguna' => 'pengguna']);
     Route::resource('verifikator', Admin\VerifikatorController::class)->except(['show'])->parameters(['verifikator' => 'verifikator']);
     Route::resource('perusahaan', Admin\PerusahaanController::class)->only(['index', 'edit', 'update'])->parameters(['perusahaan' => 'perusahaan']);
