@@ -83,4 +83,18 @@ class AnalitikTest extends TestCase
         $this->assertSame(['kuartal' => null, 'wilayah' => null, 'bidang' => null], $asal->viewData('filter'));
         $this->assertSame('kuartal', $asal->viewData('tingkat'));
     }
+
+    public function test_perlu_ditindak_dihitung_dari_warehouse(): void
+    {
+        $this->actingAs($this->admin());
+
+        $judul = collect($this->get('/admin/analitik')->assertOk()->viewData('perlu'))->pluck('judul');
+        // Kenaikan terbesar Q1 ke Q2 ada di Data Analyst untuk lowongan remote (75 menjadi 193).
+        $this->assertContains('Data Analyst di Remote naik paling cepat', $judul);
+        $this->assertContains('Verifikasi makin lambat', $judul);
+
+        // Keahlian yang seri di posisi teratas disebut semuanya, bukan hanya yang pertama.
+        $dice = collect($this->get('/admin/analitik?kuartal=Q2&wilayah=Remote&bidang=Data%20Analyst')->viewData('perlu'))->pluck('judul');
+        $this->assertContains('Python, SQL dan Visualisasi Data paling banyak diminta', $dice);
+    }
 }
