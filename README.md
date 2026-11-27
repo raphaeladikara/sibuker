@@ -8,6 +8,31 @@ Laravel 13 + Blade + Eloquent, MySQL 8.4. Skema mengikuti `SIBUKER_PT.sql`: 15 t
 
 Butuh PHP 8.3+, Composer, dan MySQL (Laragon cukup).
 
+### Cara cepat di Windows (Laragon)
+
+| Skrip | Isi | Alamat |
+|---|---|---|
+| `start-web.bat` | aplikasi SIBUKER untuk semua peran | http://127.0.0.1:8000 |
+| `start-web.bat reset` | sama, tetapi database aplikasi dikosongkan dan diisi ulang data demo | |
+| `start-dashboard.bat` | dashboard Analitik dari data warehouse `sibuker_dw` (login admin) | http://127.0.0.1:8001/admin/analitik |
+| `start-dashboard.bat muat-ulang` | sama, tetapi `sibuker_dw` ditimpa ulang dari `database/dw/sibuker_dw.sql` | |
+
+Keduanya menyalakan MySQL Laragon kalau belum jalan, menjalankan `composer install`, membuat
+`.env`, dan menyiapkan database `sibuker_pt` lewat `scripts/siapkan.bat`. `start-dashboard.bat`
+juga mengimpor `sibuker_dw` dari dump kalau database itu belum ada. Portnya beda, jadi
+keduanya bisa dijalankan bersamaan.
+
+Kalau port 3306 sedang dipakai MySQL XAMPP (misalnya untuk Pentaho), skrip berhenti dengan
+pesan karena SIBUKER butuh MySQL 8.4, bukan MariaDB. Matikan MySQL XAMPP, atau jalankan
+MySQL Laragon di port lain dari jendela cmd yang sama:
+
+```bat
+set MYSQL_PORT=3307
+start-web.bat
+```
+
+### Cara manual
+
 ```bash
 composer install
 cp .env.example .env
@@ -78,6 +103,8 @@ Operasi OLAP lewat klik dan query string:
 | Dice | pilih wilayah dan bidang, atau klik sel heatmap | `wilayah`, `bidang` |
 
 Kalau `sibuker_dw` belum ada, halaman menampilkan pesan dan test `AnalitikTest` dilewati.
+`database/dw/sibuker_dw.sql` adalah dump warehouse setelah dua batch ETL (Januari sampai Juni 2026),
+dipakai `start-dashboard.bat` untuk mengisi `sibuker_dw` di laptop yang belum menjalankan Pentaho.
 
 ## Test
 
