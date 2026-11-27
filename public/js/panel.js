@@ -21,7 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Filter langsung diterapkan begitu pilihan berubah. Tombol Terapkan tetap ada kalau JavaScript mati.
-    document.querySelectorAll('form.filter select').forEach((s) => s.addEventListener('change', () => s.form.submit()));
+    // Pilihan "Semua ..." tidak ikut dikirim supaya alamatnya tetap bersih dan enak dibagikan.
+    const kirim = (form) => {
+        form.querySelectorAll('select').forEach((s) => { s.disabled = s.value === ''; });
+        form.submit();
+    };
+    document.querySelectorAll('form.filter select').forEach((s) => s.addEventListener('change', () => kirim(s.form)));
 
     // Satu tooltip dipakai bersama. Baris pertama data-tip jadi judul, sisanya keterangan.
     const tip = document.querySelector('.tip');
