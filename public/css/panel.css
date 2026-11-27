@@ -12,7 +12,10 @@
     --warn: #b86e00; --warn-soft: #fef3df;
     --bad: #d23a2e; --bad-soft: #fdecea;
     --track: #eef1f7;
-    --c2: #5b8ff0; --c3: #a9c4f7;
+    --c2: #5b8ff0; --c3: #86b6ef;
+    /* Pasangan warna grafik yang lolos validator palet: biru-oranye untuk disetujui/ditolak
+       (aman untuk buta warna), dan dua tingkat biru untuk bagian dari total. */
+    --setuju: #0a66c2; --tolak: #eb6834;
     --e1: 0 1px 2px rgba(16, 24, 40, .04);
     --e3: 0 12px 32px rgba(16, 24, 40, .12), 0 0 0 1px rgba(16, 24, 40, .05);
     --ease: cubic-bezier(.23, 1, .32, 1);

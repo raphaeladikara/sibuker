@@ -277,7 +277,7 @@
         @if ($kpi['verifikasi'])
             @php
                 $uk = 136; $tb = 16; $r = ($uk - $tb) / 2; $C = 2 * M_PI * $r; $celah = 5;
-                $seg = [['v' => $kpi['setuju'], 'c' => 'var(--ok)'], ['v' => $kpi['ditolak'], 'c' => 'var(--bad)']];
+                $seg = [['v' => $kpi['setuju'], 'c' => 'var(--setuju)'], ['v' => $kpi['ditolak'], 'c' => 'var(--tolak)']];
                 $off = 0;
             @endphp
             <div class="donut-wrap">
@@ -295,8 +295,8 @@
                     <div class="mid"><div><span>Disetujui</span><b>{{ $angka($kpi['persen_setuju'], 1) }}%</b></div></div>
                 </div>
                 <div class="dleg">
-                    <div style="--c: var(--ok)">Disetujui <b>{{ $angka($kpi['setuju']) }}</b></div>
-                    <div style="--c: var(--bad)">Ditolak <b>{{ $angka($kpi['ditolak']) }}</b></div>
+                    <div style="--c: var(--setuju)">Disetujui <b>{{ $angka($kpi['setuju']) }}</b></div>
+                    <div style="--c: var(--tolak)">Ditolak <b>{{ $angka($kpi['ditolak']) }}</b></div>
                     <div style="--c: var(--line-strong)">Total keputusan <b>{{ $angka($kpi['verifikasi']) }}</b></div>
                 </div>
             </div>
