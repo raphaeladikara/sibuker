@@ -28,6 +28,7 @@
         ],
         'admin' => [
             ['admin.dashboard', 'admin.dashboard', 'bi-grid', 'Ringkasan'],
+            ['admin.analitik', 'admin.analitik', 'bi-bar-chart-line', 'Analitik'],
             ['admin.pengguna.index', 'admin.pengguna.*', 'bi-people', 'Pengguna'],
             ['admin.verifikator.index', 'admin.verifikator.*', 'bi-person-check', 'Verifikator'],
             ['admin.perusahaan.index', 'admin.perusahaan.*', 'bi-building', 'Perusahaan'],

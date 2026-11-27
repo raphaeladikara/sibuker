@@ -62,6 +62,23 @@ sertifikat cuma boleh membuktikan keahlian milik pemiliknya sendiri, cuma verifi
 sudah disetujui yang boleh menautkan keahlian, dan verifikator tidak boleh memeriksa
 sertifikat miliknya sendiri.
 
+## Analitik data warehouse (UAS)
+
+Menu **Analitik** di panel admin (`/admin/analitik`) membaca database `sibuker_dw`, yaitu data
+warehouse hasil ETL Pentaho, lewat koneksi `dw` di `config/database.php`. Database aplikasi
+`sibuker_pt` tidak disentuh. Koneksi `dw` memakai server yang sama dengan aplikasi; nama
+databasenya diatur lewat `DW_DATABASE` (default `sibuker_dw`).
+
+Operasi OLAP lewat klik dan query string:
+
+| Operasi | Cara di halaman | Parameter |
+|---|---|---|
+| Drill-down / roll-up | klik batang tren, atau tombol Tahun / Kuartal / Bulan dan jejak di atas grafik | `tingkat`, `kuartal` |
+| Slice | pilih kuartal | `kuartal=Q2` |
+| Dice | pilih wilayah dan bidang, atau klik sel heatmap | `wilayah`, `bidang` |
+
+Kalau `sibuker_dw` belum ada, halaman menampilkan pesan dan test `AnalitikTest` dilewati.
+
 ## Test
 
 Test memakai database MySQL terpisah, `sibuker_pt_test`, karena skema punya view, CHECK
